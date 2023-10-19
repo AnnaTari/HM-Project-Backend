@@ -1,4 +1,1 @@
-CREATE TABLE Admin (
-                          AdminID INT PRIMARY KEY,
-                          age VARCHAR(50)
-);
+insert into Admin (AdminID, age) VALUES (1, '12')
