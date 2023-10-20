@@ -1,0 +1,1 @@
+INSERT INTO LotteryAdmin (adminname, password) VALUES ('Yasch', '1234');

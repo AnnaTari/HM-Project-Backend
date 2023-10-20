@@ -1,9 +1,8 @@
-CREATE TABLE admin
-(
-    admin_id integer NOT NULL,
-    adminname varchar (50) NOT NULL,
-    password varchar (50) NOT NULL,
-    CONSTRAINT admin_pkey PRIMARY KEY (admin_id)
+CREATE TABLE LotteryAdmin(
+    admin_Id INT AUTO_INCREMENT PRIMARY KEY,
+    adminname varchar (50) not null,
+    password varchar (50) not null,
+    CONSTRAINT admin_pkey PRIMARY KEY (admin_Id)
     );
 
 CREATE TABLE attendance
@@ -23,15 +22,15 @@ CREATE TABLE blacklist
     user_id integer NOT NULL,
     blacklistcounter integer NOT NULL,
     CONSTRAINT blacklist_pkey PRIMARY KEY (blacklist_id)
-    );
+);
 
-CREATE TABLE user
+CREATE TABLE usee
 (
-    user_id integer NOT NULL,
+    user_id integer auto_increment NOT NULL,
     username varchar (50) NOT NULL,
     email varchar (50) NOT NULL,
     CONSTRAINT user_pkey PRIMARY KEY (user_id)
-    );
+);
 
 CREATE TABLE eventhsv
 (
@@ -47,11 +46,11 @@ CREATE TABLE eventhsv
     deadline time with time zone NOT NULL,
     ticketamount integer NOT NULL,
     CONSTRAINT eventhsv_pkey PRIMARY KEY (eventhsv_id)
-    );
+);
 
 CREATE TABLE eventtype
 (
     eventtype_id integer NOT NULL,
     eventhsv varchar (50),
     CONSTRAINT eventtype_pkey PRIMARY KEY (eventtype_id)
-    )
+)
