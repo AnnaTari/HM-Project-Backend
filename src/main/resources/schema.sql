@@ -1,57 +1,62 @@
-CREATE TABLE admin
+CREATE TABLE lottery_admin
 (
     admin_id integer NOT NULL,
-    adminname varchar (50) NOT NULL,
-    password varchar (50) NOT NULL,
+    admin_name varchar (50) NOT NULL,
+    admin_password varchar (50) NOT NULL,
     CONSTRAINT admin_pkey PRIMARY KEY (admin_id)
-    );
+);
 
 CREATE TABLE attendance
 (
     user_id integer NOT NULL,
-    eventhsv_id integer NOT NULL,
-    escortname varchar (50) NOT NULL,
-    win boolean NOT NULL,
-    substitute_winner boolean  NOT NULL
-
+    event_hsv_id integer NOT NULL,
+    escort_name varchar (50) NOT NULL,
+    winner boolean NOT NULL,
+    substitute_winner boolean  NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user(user_id),
+    FOREIGN KEY (event_hsv_id) REFERENCES event_hsv(event_hsv_id)
 );
 
 CREATE TABLE blacklist
 (
     blacklist_id integer NOT NULL,
-    eventhsv_id integer NOT NULL,
+    event_hsv_id integer NOT NULL,
     user_id integer NOT NULL,
-    blacklistcounter integer NOT NULL,
-    CONSTRAINT blacklist_pkey PRIMARY KEY (blacklist_id)
-    );
+    blacklist_counter integer NOT NULL,
+    CONSTRAINT blacklist_pkey PRIMARY KEY (blacklist_id),
+    FOREIGN KEY (event_hsv_id) REFERENCES event_hsv(event_hsv_id),
+    FOREIGN KEY (user_id) REFERENCES user(user_id)
+);
 
 CREATE TABLE user
 (
     user_id integer NOT NULL,
-    username varchar (50) NOT NULL,
+    user_name varchar (50) NOT NULL,
     email varchar (50) NOT NULL,
     CONSTRAINT user_pkey PRIMARY KEY (user_id)
-    );
+);
 
-CREATE TABLE eventhsv
+CREATE TABLE event_hsv
 (
-    eventhsv_id integer NOT NULL,
-    eventtype_id integer NOT NULL,
+    event_hsv_id integer NOT NULL,
+    event_type_id integer NOT NULL,
     admin_id integer NOT NULL,
     opposite varchar (50) NOT NULL,
-    matchdetails varchar (250) NOT NULL,
-    date date NOT NULL,
-    "time" time without time zone NOT NULL,
+    match_details varchar (250) NOT NULL,
+    event_date date NOT NULL,
+    event_time time without time zone NOT NULL,
     location varchar (50) NOT NULL,
     picture varchar NOT NULL,
     deadline time with time zone NOT NULL,
-    ticketamount integer NOT NULL,
-    CONSTRAINT eventhsv_pkey PRIMARY KEY (eventhsv_id)
-    );
+    ticket_amount integer NOT NULL,
+    CONSTRAINT event_hsv_pkey PRIMARY KEY (event_hsv_id),
+    FOREIGN KEY (event_type_id) REFERENCES event_type(event_type_id),
+    FOREIGN KEY (admin_id) REFERENCES lottery_admin(admin_id)
+);
 
-CREATE TABLE eventtype
+CREATE TABLE event_type
 (
-    eventtype_id integer NOT NULL,
-    eventhsv varchar (50),
-    CONSTRAINT eventtype_pkey PRIMARY KEY (eventtype_id)
-    )
+    event_type_id integer NOT NULL,
+    event_hsv varchar (50),
+    CONSTRAINT event_type_pkey PRIMARY KEY (event_type_id)
+);
