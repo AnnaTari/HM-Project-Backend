@@ -1,1 +1,0 @@
-insert into Admin (AdminID, age) VALUES (1, '12')
