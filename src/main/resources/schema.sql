@@ -26,7 +26,7 @@ CREATE TABLE event_hsv
     event_hsv_id  integer                NOT NULL,
     event_type_id integer                NOT NULL,
     admin_id      integer                NOT NULL,
-    opposite      varchar(50)            NOT NULL,
+    opponent      varchar(50)            NOT NULL,
     match_details varchar(250)           NOT NULL,
     event_date    date                   NOT NULL,
     event_time    time without time zone NOT NULL,
