@@ -18,11 +18,13 @@ public class AdminRepository {
         this.entityManager = entityManager;
     }
 
-    public List<Admin> findAdminByUsernameAndPassword() {
+    public List<Admin> findAdminByUsernameAndPassword(String adminName, String adminPassword) {
         System.out.println("SQL");
         try {
-             return entityManager.createNativeQuery(
-                            "SELECT * FROM LotteryAdmin a", Admin.class)
+            return entityManager.createNativeQuery(
+                            "SELECT * FROM hm_admin a where a.admin_name = :adminName AND a.admin_password = :adminPassword", Admin.class)
+                    .setParameter("adminName", adminName)
+                    .setParameter("adminPassword", adminPassword)
                     .getResultList();
         } catch (Exception e) {
             log.warn(e.getMessage());

@@ -16,7 +16,7 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
-    public List<Admin> findAdminByUsernameAndPassword() {
-        return adminRepository.findAdminByUsernameAndPassword();
+    public List<Admin> findAdminByUsernameAndPassword(String adminName, String adminPassword) {
+        return adminRepository.findAdminByUsernameAndPassword(adminName, adminPassword);
     }
 }
