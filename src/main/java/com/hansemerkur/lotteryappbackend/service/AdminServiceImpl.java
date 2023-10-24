@@ -1,6 +1,6 @@
 package com.hansemerkur.lotteryappbackend.service;
 
-import com.hansemerkur.lotteryappbackend.model.Admin;
+import com.hansemerkur.lotteryappbackend.entity.Admin;
 import com.hansemerkur.lotteryappbackend.repository.AdminRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
-    public List<Admin> findAdminByUsernameAndPassword() {
-        return adminRepository.findAdminByUsernameAndPassword();
+    public Admin findAdminByUsernameAndPassword(String adminName, String adminPassword) {
+        return adminRepository.findAdminByUsernameAndPassword(adminName, adminPassword);
     }
 }
