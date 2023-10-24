@@ -1,6 +1,6 @@
 package com.hansemerkur.lotteryappbackend.repository;
 
-import com.hansemerkur.lotteryappbackend.model.Admin;
+import com.hansemerkur.lotteryappbackend.model.Event;
 import jakarta.persistence.EntityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

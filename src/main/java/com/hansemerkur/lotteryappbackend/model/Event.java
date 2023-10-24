@@ -6,7 +6,7 @@ import jakarta.persistence.Id;
 
 import java.util.Date;
 
-@Entity //makes object ready for storage
+@Entity //represents record we want to retrieve from the database
 public class Event {
     @Id
     @GeneratedValue

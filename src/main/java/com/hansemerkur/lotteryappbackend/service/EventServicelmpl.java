@@ -1,6 +1,6 @@
 package com.hansemerkur.lotteryappbackend.service;
 
-import com.hansemerkur.lotteryappbackend.model.Admin;
+//import com.hansemerkur.lotteryappbackend.model.Admin;
 import com.hansemerkur.lotteryappbackend.repository.AdminRepository;
 import org.springframework.stereotype.Service;
 
