@@ -1,7 +1,7 @@
 package com.hansemerkur.lotteryappbackend.controller;
 
 import com.hansemerkur.lotteryappbackend.dto.AdminDto;
-import com.hansemerkur.lotteryappbackend.entity.Admin;
+import com.hansemerkur.lotteryappbackend.model.Admin;
 import com.hansemerkur.lotteryappbackend.service.AdminService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
