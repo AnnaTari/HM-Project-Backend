@@ -1,4 +1,4 @@
-package com.hansemerkur.lotteryappbackend.entity;
+package com.hansemerkur.lotteryappbackend.model;
 
 import jakarta.persistence.*;
 

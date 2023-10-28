@@ -1,5 +1,6 @@
 package com.hansemerkur.lotteryappbackend.controller;
 
+import com.hansemerkur.lotteryappbackend.model.Event;
 import com.hansemerkur.lotteryappbackend.service.EventService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +19,10 @@ public class EventController {
     public EventController(EventService eventService) {this.eventService = eventService;}
 
     @GetMapping("/events")
-    public List<String> findAllEvents() {
-       // return eventService.findAllEvents();
-        //...
-        return Arrays.asList("HSV", "St Pauli");
+    public List<Event> findAllEvents() {
+        return eventService.findAllEvents();
+
+        // return Arrays.asList("HSV33", "St Pauli");
     }
 
     //@GetMapping
