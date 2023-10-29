@@ -10,7 +10,6 @@ public class Admin {
     @Id
     @GeneratedValue
     private Long adminId;
-
     private String adminName;
 
     private String adminPassword;
