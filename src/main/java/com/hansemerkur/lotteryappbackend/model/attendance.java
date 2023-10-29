@@ -15,14 +15,14 @@ public class attendance {
     private String escortname;
 
     @ManyToOne
-    private HMUser HMUser;
+    private Employee Employee;
 
-    public HMUser getUser() {
-        return HMUser;
+    public Employee getUser() {
+        return Employee;
     }
 
-    public void sethm_user(HMUser HMUser) {
-        this.HMUser = HMUser;
+    public void sethm_user(Employee Employee) {
+        this.Employee = Employee;
     }
         @Override
         public String toString() {
