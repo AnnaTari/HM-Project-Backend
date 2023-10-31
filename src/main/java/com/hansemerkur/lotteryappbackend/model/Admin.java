@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Entity
 public class Admin {
 
-    //Admin_id automatically generated
+    //AdminId automatically generated
     @Id
     @GeneratedValue
     private Long adminId;
@@ -23,11 +23,11 @@ public class Admin {
         this.adminPassword = adminPassword;
     }
 
-    public Long getAdmin_id() {
+    public Long getAdminId() {
         return adminId;
     }
 
-    public String getAdminname() {
+    public String getAdminName() {
         return adminName;
     }
 
@@ -35,24 +35,24 @@ public class Admin {
         return adminPassword;
     }
 
-    public void setAdmin_id(Long admin_id) {
-        this.adminId = admin_id;
+    public void setAdminId(Long adminId) {
+        this.adminId = adminId;
     }
 
-    public void setAdminname(String adminname) {
-        this.adminName = adminname;
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
     }
 
-    public void setPassword(String password) {
-        this.adminPassword = password;
+    public void setPassword(String adminPassword) {
+        this.adminPassword = adminPassword;
     }
 
     @Override
     public String toString() {
         return "Admin{" +
-                "admin_id=" + adminId +
-                ", adminname='" + adminName + '\'' +
-                ", password='" + adminPassword + '\'' +
+                "adminId=" + adminId +
+                ", adminName='" + adminName + '\'' +
+                ", adminPassword='" + adminPassword + '\'' +
                 '}';
     }
 }
