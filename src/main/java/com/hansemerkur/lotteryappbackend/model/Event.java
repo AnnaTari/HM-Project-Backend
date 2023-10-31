@@ -6,6 +6,7 @@ import jakarta.persistence.Id;
 
 import java.sql.Blob;
 import java.sql.Time;
+import java.util.Arrays;
 import java.util.Date;
 
 @Entity //represents record we want to retrieve from the database
@@ -31,21 +32,26 @@ public class Event {
 
     }
 
-    public Event(String match_name, Date event_date) {
-        this.matchName = match_name;
-        this.eventDate = event_date;
+    public Event(Long eventHsvId, String matchName, String matchDetails, Date eventDate, Time eventTime, String location, byte[] picture, Date deadline, Integer ticketType, Integer ticketAmount, Date registrationDate) {
+        this.eventHsvId = eventHsvId;
+        this.matchName = matchName;
+        this.matchDetails = matchDetails;
+        this.eventDate = eventDate;
+        this.eventTime = eventTime;
+        this.location = location;
+        this.picture = picture;
+        this.deadline = deadline;
+        this.ticketType = ticketType;
+        this.ticketAmount = ticketAmount;
+        this.registrationDate = registrationDate;
     }
 
-    public Long getEvent_hsv_id() {
+    public Long getEventHsvId() {
         return eventHsvId;
     }
 
-    public String getMatch_name() {
+    public String getMatchName() {
         return matchName;
-    }
-
-    public Date getEvent_date() {
-        return eventDate;
     }
 
     public Date getEventDate() {
@@ -80,27 +86,34 @@ public class Event {
         return registrationDate;
     }
 
-    public void setEvent_hsv_id(Long event_hsv_id) {
-        this.eventHsvId = event_hsv_id;
+    public void setEventHsvId(Long eventHsvId) {
+        this.eventHsvId = eventHsvId;
     }
 
-    public void setMatch_name(String match_name) {
-        this.matchName = match_name;
+    public void setMatchName(String matchName) {
+        this.matchName = matchName;
     }
 
-    public void setEvent_date(Date event_date) {
-        this.eventDate = event_date;
+
+    public void setMatchDetails(String matchDetails) {
+        this.matchDetails = matchDetails;
     }
 
-    public void setMatchDetails(String matchDetails) {this.matchDetails = matchDetails;}
+    public void setEventDate(Date eventDate) {
+        this.eventDate = eventDate;
+    }
 
-    public void setEventDate(Date eventDate) {this.eventDate = eventDate;}
+    public void setEventTime(Time eventTime) {
+        this.eventTime = eventTime;
+    }
 
-    public void setEventTime(Time eventTime) {this.eventTime = eventTime;}
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
-    public void setLocation(String location) {this.location = location;}
-
-    public void setPicture(byte[] picture) {this.picture = picture;}
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
+    }
 
     public void setDeadline(Date deadline) {
         this.deadline = deadline;
@@ -120,7 +133,19 @@ public class Event {
 
     @Override
     public String toString() {
-        return "Event {" + "event_hsv_id=" + this.eventHsvId + ", match_name='" + this.matchName + '\'' + ", event_date='" + this.eventDate + '\'' + '}';
+        return "Event{" +
+                "eventHsvId=" + eventHsvId +
+                ", matchName='" + matchName + '\'' +
+                ", matchDetails='" + matchDetails + '\'' +
+                ", eventDate=" + eventDate +
+                ", eventTime=" + eventTime +
+                ", location='" + location + '\'' +
+                ", picture=" + Arrays.toString(picture) +
+                ", deadline=" + deadline +
+                ", ticketType=" + ticketType +
+                ", ticketAmount=" + ticketAmount +
+                ", registrationDate=" + registrationDate +
+                '}';
     }
 }
 
