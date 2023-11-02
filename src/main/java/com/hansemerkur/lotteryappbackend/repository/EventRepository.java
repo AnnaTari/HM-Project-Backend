@@ -55,12 +55,13 @@ public class EventRepository {
     public List<Event> deleteEvent(Event event) {
         System.out.println("deleteEvent");
         try {
-            entityManager.createNativeQuery("Delete from event_hsv where event_hsv_id = :eventHsvID")
+            entityManager.createNativeQuery("Delete from event_hsv where event_hsv_id = :eventHsvId")
                     .setParameter("eventHsvId", event.getEventHsvId())
                     .executeUpdate();
             return findAllEvents();
         } catch (Exception e) {
             log.warn(e.getMessage());
         }
+        return List.of();
     }
 }
