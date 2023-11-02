@@ -24,4 +24,9 @@ public class EventServicelmpl implements EventService {
     public List<Event> addEvent(Event event) {
         return eventRepository.addEvent(event);
     }
+
+    @Override
+    public List<Event> deleteEvent(Event event) {
+        return eventRepository.deleteEvent(event);
+    }
 }

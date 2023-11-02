@@ -22,7 +22,6 @@ public class EventRepository {
     }
 
     public List<Event> findAllEvents() {
-        System.out.println("SQL");
         try {
             return (List<Event>) entityManager.createNativeQuery(
                             "SELECT * FROM  event_hsv a", Event.class)
@@ -34,7 +33,6 @@ public class EventRepository {
     }
 
     public List<Event> addEvent(Event event) {
-        System.out.println("addEVent");
         try {
             entityManager.createNativeQuery("INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, deadline, ticket_type, ticket_amount, registration_date) VALUES (:adminId,:matchName, :matchDetails, :eventDate, :location, :deadline, :ticketType, :ticketAmount, :registrationDate)", Event.class)
                     .setParameter("adminId", event.getAdminId())
@@ -47,13 +45,22 @@ public class EventRepository {
                     .setParameter("ticketAmount", event.getTicketAmount())
                     .setParameter("registrationDate", event.getRegistrationDate())
                     .executeUpdate();
-
-            return (List<Event>) entityManager.createNativeQuery(
-                            "SELECT * FROM  event_hsv a", Event.class)
-                    .getResultList();
+            return findAllEvents();
         } catch (Exception e) {
             log.warn(e.getMessage());
         }
         return List.of();
+    }
+
+    public List<Event> deleteEvent(Event event) {
+        System.out.println("deleteEvent");
+        try {
+            entityManager.createNativeQuery("Delete from event_hsv where event_hsv_id = :eventHsvID")
+                    .setParameter("eventHsvId", event.getEventHsvId())
+                    .executeUpdate();
+            return findAllEvents();
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        }
     }
 }

@@ -9,4 +9,6 @@ public interface EventService {
     List<Event> findAllEvents();
 
     List<Event> addEvent(Event event);
+
+    List<Event> deleteEvent(Event event);
 }

@@ -26,8 +26,14 @@ public class EventController {
 
     @PostMapping("/addEvent")
     public List<Event> addEvent(@RequestBody Event event) {
-        System.out.println(event);
         return eventService.addEvent(event);
+    }
+
+
+    @PostMapping("/deleteEvent")
+    public List<Event> deleteEvent(@RequestBody Event event) {
+        System.out.println(event);
+        return eventService.deleteEvent(event);
     }
 
 }
