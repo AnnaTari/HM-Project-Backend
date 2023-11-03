@@ -1,14 +1,18 @@
 package com.hansemerkur.lotteryappbackend.controller;
 
+import com.hansemerkur.lotteryappbackend.model.Winner;
+import com.hansemerkur.lotteryappbackend.service.WinnerService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping(value = "/winner")
 
 public class WinnerController {
-    private final WinnerService winnerservice;
-    public WinnerController(WinnerController winnerController) {this.winnerservice = winnerService;}
+    private final WinnerService winnerService;
+    public WinnerController(WinnerController winnerController) {this.winnerService = winnerService;}
 
     @GetMapping()
     public List<Winner> getAllWinners() {

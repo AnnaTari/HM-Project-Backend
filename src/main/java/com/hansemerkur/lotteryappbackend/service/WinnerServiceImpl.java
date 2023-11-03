@@ -1,8 +1,11 @@
 package com.hansemerkur.lotteryappbackend.service;
 
 import com.hansemerkur.lotteryappbackend.model.Event;
+import com.hansemerkur.lotteryappbackend.model.Winner;
 import com.hansemerkur.lotteryappbackend.repository.EventRepository;
+import com.hansemerkur.lotteryappbackend.repository.WinnerRepository;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 
