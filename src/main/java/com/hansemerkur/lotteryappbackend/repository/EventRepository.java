@@ -34,12 +34,13 @@ public class EventRepository {
 
     public List<Event> addEvent(Event event) {
         try {
-            entityManager.createNativeQuery("INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, deadline, ticket_type, ticket_amount, registration_date) VALUES (:adminId,:matchName, :matchDetails, :eventDate, :location, :deadline, :ticketType, :ticketAmount, :registrationDate)", Event.class)
+            entityManager.createNativeQuery("INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, picture,  deadline, ticket_type, ticket_amount, registration_date) VALUES (:adminId,:matchName, :matchDetails, :eventDate, :location, :picture, :deadline, :ticketType, :ticketAmount, :registrationDate)", Event.class)
                     .setParameter("adminId", event.getAdminId())
                     .setParameter("matchName", event.getMatchName())
                     .setParameter("matchDetails", event.getMatchDetails())
                     .setParameter("eventDate", event.getEventDate())
                     .setParameter("location", event.getLocation())
+                    .setParameter("picture", event.getPicture())
                     .setParameter("deadline", event.getDeadline())
                     .setParameter("ticketType", event.getTicketType())
                     .setParameter("ticketAmount", event.getTicketAmount())
