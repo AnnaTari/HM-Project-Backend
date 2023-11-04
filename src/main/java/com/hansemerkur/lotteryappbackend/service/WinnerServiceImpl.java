@@ -20,7 +20,7 @@ public class WinnerServiceImpl implements WinnerService {
 
     @Override
     public List<Winner> getAllWinners() {
-        return winnerRepository.getAllWinners();
+        return winnerRepository.getAllParticipants();
     }
 
     @Override

@@ -12,11 +12,13 @@ import java.util.List;
 
 public class WinnerController {
     private final WinnerService winnerService;
-    public WinnerController(WinnerController winnerController) {this.winnerService = winnerService;}
+    public WinnerController(WinnerService winnerService) {this.winnerService = winnerService;}
 
+
+    //get attendances, name winners and give out winners
     @GetMapping()
-    public List<Winner> getAllWinners() {
-        return winnerService.getAllWinners();
+    public List<Winner> getAllParticipants() {
+        return winnerService.getAllParticipants();
     }
 
     @PostMapping("/nameWinner")

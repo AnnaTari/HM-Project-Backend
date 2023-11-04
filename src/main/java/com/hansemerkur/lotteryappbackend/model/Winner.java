@@ -1,9 +1,5 @@
 package com.hansemerkur.lotteryappbackend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-
 public class Winner {
 
     private long blacklistId;
