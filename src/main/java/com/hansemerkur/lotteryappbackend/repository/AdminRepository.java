@@ -17,7 +17,6 @@ public class AdminRepository {
     }
 
     public Admin findAdminByUsernameAndPassword(String adminName, String adminPassword) {
-        System.out.println("SQL");
         try {
             return (Admin) entityManager.createNativeQuery(
                             "SELECT * FROM hm_admin a where a.admin_name = :adminName AND a.admin_password = :adminPassword", Admin.class)

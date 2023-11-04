@@ -11,7 +11,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @CrossOrigin("http://localhost:4200")
 @RestController
-@RequestMapping(value = "/event-page")
+@RequestMapping(value = "/employee")
 public class EmployeeController {
     private EmployeeService employeeService;
 
@@ -21,8 +21,8 @@ public class EmployeeController {
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseBody
-
     public Employee saveEmployee(@RequestBody Employee employee) {
+        System.out.println("Employee");
         return employeeService.saveUser(employee);
     }
 

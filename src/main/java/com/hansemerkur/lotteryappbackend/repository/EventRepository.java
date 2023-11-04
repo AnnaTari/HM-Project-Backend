@@ -22,7 +22,6 @@ public class EventRepository {
     }
 
     public List<Event> findAllEvents() {
-        System.out.println("SQL");
         try {
             return (List<Event>) entityManager.createNativeQuery(
                             "SELECT * FROM  event_hsv a", Event.class)
@@ -34,7 +33,6 @@ public class EventRepository {
     }
 
     public List<Event> addEvent(Event event) {
-        System.out.println("addEVent");
         try {
             entityManager.createNativeQuery("INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, deadline, ticket_type, ticket_amount, registration_date) VALUES (:adminId,:matchName, :matchDetails, :eventDate, :location, :deadline, :ticketType, :ticketAmount, :registrationDate)", Event.class)
                     .setParameter("adminId", event.getAdminId())
