@@ -7,6 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
+
+
 @Repository
 public class EmployeeRepository {
     private static final Logger log = LoggerFactory.getLogger(EmployeeRepository.class);
@@ -32,4 +35,5 @@ public class EmployeeRepository {
         entityManager.persist(user);
         return user;
     }
+
 }
