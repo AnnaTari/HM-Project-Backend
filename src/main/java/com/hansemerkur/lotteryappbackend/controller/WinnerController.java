@@ -16,14 +16,14 @@ public class WinnerController {
 
 
     //get attendances, name winners and give out winners
-    @GetMapping()
-    public List<Winner> getAllParticipants() {
-        return winnerService.getAllParticipants();
+    @GetMapping(value = "")
+    public List<Winner> findAllParticipants() {
+        return winnerService.findAllParticipants();
     }
 
     @PostMapping("/nameWinner")
     public List<Winner> nameWinner(@RequestBody Winner winner) {
         System.out.println(winner);
-        return winnerService.nameWinner(winner);
+        return (List<Winner>) winnerService.nameWinner(winner);
     }
 }

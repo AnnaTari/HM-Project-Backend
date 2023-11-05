@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface WinnerService {
 
-    List<Winner> getAllParticipants();
-    List<Winner> nameWinner();
+    List<Winner> findAllParticipants();
+    Winner nameWinner(Winner winner);
 }
