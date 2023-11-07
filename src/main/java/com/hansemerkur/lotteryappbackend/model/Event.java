@@ -1,5 +1,6 @@
 package com.hansemerkur.lotteryappbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -8,6 +9,7 @@ import java.sql.Time;
 import java.util.Arrays;
 import java.util.Date;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity //represents record we want to retrieve from the database
 public class Event {
     @Id
