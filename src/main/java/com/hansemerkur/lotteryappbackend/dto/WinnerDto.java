@@ -11,8 +11,8 @@ public class WinnerDto {
     private String substituteWinner;
     private String blacklistCounter;
 
-    public WinnerDto(String userId, String eventHsvId, String blacklistId, String name, String email, String escortName, String winner, String substituteWinner, String blacklistCounter) {
-        this.userId = userId;
+    public WinnerDto(String employee_id, String eventHsvId, String blacklistId, String name, String email, String escortName, String winner, String substituteWinner, String blacklistCounter) {
+        this.employee_id = employee_id;
         this.eventHsvId = eventHsvId;
         this.blacklistId = blacklistId;
         this.name = name;
@@ -23,12 +23,12 @@ public class WinnerDto {
         this.blacklistCounter = blacklistCounter;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getEmployeeId() {
+        return employee_id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setEmployeeId(String employee_id) {
+        this.employee_id = employee_id;
     }
 
     public String getEventHsvId() {
