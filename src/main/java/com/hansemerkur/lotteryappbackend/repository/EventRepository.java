@@ -1,3 +1,4 @@
+
 package com.hansemerkur.lotteryappbackend.repository;
 
 import com.hansemerkur.lotteryappbackend.model.Event;
@@ -66,6 +67,19 @@ public class EventRepository {
         return List.of();
     }
 
+    public List<Event> updateEvent(Event event) {
+        this.deleteForeignReferencesFromAttendance(event.getEventHsvId());
+        try {
+            entityManager.createNativeQuery("UPDATE event_hsv SET  match_name = :matchName where event_hsv_id = :eventHsvId")
+                    .setParameter("eventHsvId", event.getEventHsvId())
+                    .setParameter("matchName", event.getMatchName())
+                    .executeUpdate();
+            return findAllEvents();
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        }
+        return List.of();
+    }
 
     private void deleteForeignReferencesFromAttendance(Long foreignKeyValue) {
         try {

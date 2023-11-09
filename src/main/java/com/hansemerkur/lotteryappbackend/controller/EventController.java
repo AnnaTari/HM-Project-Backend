@@ -29,7 +29,6 @@ public class EventController {
         // return Arrays.asList("HSV33", "St Pauli");
     }
 
-
     @PostMapping(value = "/addEvent", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public List<Event> addEvent(@RequestPart("event") String eventString, @RequestPart("picture") MultipartFile picture) throws IOException {
         System.out.println(eventString);
@@ -39,6 +38,11 @@ public class EventController {
         event.setPicture(pictureBytes);
         System.out.println(event);
         return eventService.addEvent(event);
+    }
+
+    @PostMapping(value = "/updateEvent")
+    public List<Event> updateEvent(@RequestBody Event event) {
+        return eventService.updateEvent(event);
     }
 
 
