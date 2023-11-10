@@ -17,7 +17,7 @@ public class WinnerRepository {
         this.entityManager = entityManager;
     }
 
-    public List<Winner> findAllParticipants() {
+    public List<Winner> findByEventHsvId () {
         System.out.println("SQL");
         try {
             return (List<Winner>) entityManager.createNativeQuery(
@@ -29,13 +29,24 @@ public class WinnerRepository {
         return List.of();
     }
 
-    public List<Winner> nameWinner() {
-        System.out.println("SQL");
+    //update blacklistcounter of the winner entities
+    public void save(Winner winner) {
         try {
-           //name the winners
+            entityManager.getTransaction().begin();
+            if (winner.getEmployee_id() == null) {
+                // New entity
+                entityManager.persist(winner);
+            } else {
+                // Existing entity
+                entityManager.merge(winner);
+            }
+            entityManager.getTransaction().commit();
         } catch (Exception e) {
             log.warn(e.getMessage());
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
         }
-        return List.of();
     }
+
 }

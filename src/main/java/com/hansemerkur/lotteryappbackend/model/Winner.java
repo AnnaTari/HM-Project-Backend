@@ -10,13 +10,14 @@ public class Winner {
     private String escortName;
     private boolean winner;
     private boolean substituteWinner;
+    private int blacklistCounter;
 
     public Winner () {
 
     }
 
     //Constructor
-    public Winner(long blacklistId, int userId, int eventHsvId, String name, String email, String escortName, boolean winner, boolean substituteWinner) {
+    public Winner(long blacklistId, int employee_id, int eventHsvId, String name, String email, String escortName, boolean winner, boolean substituteWinner, int blacklistCounter) {
         this.blacklistId = blacklistId;
         this.employee_id = employee_id;
         this.eventHsvId = eventHsvId;
@@ -25,6 +26,7 @@ public class Winner {
         this.escortName = escortName;
         this.winner = winner;
         this.substituteWinner = substituteWinner;
+        this.blacklistCounter = blacklistCounter;
     }
 
     public long getBlacklistId() {
@@ -35,11 +37,11 @@ public class Winner {
         this.blacklistId = blacklistId;
     }
 
-    public int getEmplyeeId() {
+    public int getEmployee_id() {
         return employee_id;
     }
 
-    public void setEmplyeeId(int userId) {
+    public void setEmployee_id(int userId) {
         this.employee_id = employee_id;
     }
 
@@ -91,18 +93,27 @@ public class Winner {
         this.substituteWinner = substituteWinner;
     }
 
+    public int getBlacklistCounter() {
+        return blacklistCounter;
+    }
+
+    public void setBlacklistCounter(int blacklistCounter) {
+        this.blacklistCounter = blacklistCounter;
+    }
+
 
     @Override
     public String toString() {
         return "Winner{" +
                 "blacklistId=" + blacklistId +
-                ", userId=" + employee_id +
+                ", employee_id=" + employee_id +
                 ", eventHsvId=" + eventHsvId +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", escortName='" + escortName + '\'' +
                 ", winner=" + winner +
                 ", substituteWinner=" + substituteWinner +
+                ", blacklistCounter=" + blacklistCounter +
                 '}';
     }
 }

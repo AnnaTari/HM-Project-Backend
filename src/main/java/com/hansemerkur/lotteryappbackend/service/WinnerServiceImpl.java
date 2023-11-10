@@ -7,7 +7,10 @@ import com.hansemerkur.lotteryappbackend.repository.WinnerRepository;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 public class WinnerServiceImpl implements WinnerService {
@@ -18,22 +21,12 @@ public class WinnerServiceImpl implements WinnerService {
         this.winnerRepository = winnerRepository;
     }
 
-    @Override
-    public List<Winner> findAllParticipants() {
-        return winnerRepository.findAllParticipants();
-    }
-
-    @Override
-    public List<Winner> nameWinner(Winner winner) {
-        return winnerRepository.nameWinner(winner);
-    }
-}
-
 //Logic of generating winners with randomnumbergenerator
-//public class LotteryProcedure {
-//
-//  //Create participant list
-//  public static void main(String[] args) {
+
+    //fetching participants
+    public List<Winner> selectWinners(Long eventHsvId) {
+        List<Winner> participants = winnerRepository.findByEventHsvId(eventHsvId);
+
 //    List<String> participants = new ArrayList<>();
 //    participants.add("Teilnehmer 1");
 //    participants.add("Teilnehmer 2");
@@ -51,27 +44,44 @@ public class WinnerServiceImpl implements WinnerService {
 //    participants.add("Teilnehmer 14");
 //    participants.add("Teilnehmer 15");
 //    participants.add("Teilnehmer 16");
-//
-//    //Random number generator is instance of random-class
-//    Random randomNumberGenerator = new Random();
-//
-//    //List to save the winners
-//    List<String> winners = new ArrayList<>();
-//
-//    //Blacklist for already chosen winners
-//    List<String> blacklist = new ArrayList<>();
-//
-//    //Choose ten random authorized winners
-//    for (int i = 0; i < 10; i++) {
-//      List<String> authorizedParticipants  = new ArrayList<>(participants);
-//      authorizedParticipants.removeAll(blacklist); //Remove participants which are on the blacklist
-//
-//      int index = randomNumberGenerator.nextInt(authorizedParticipants.size()); //Random Index
-//      String winnerName = authorizedParticipants.get(index); //Choose Winner
-//      winners.add(winnerName); //Add winner to winner list
-//      participants.remove(index); //Remove winner from list
-//      blacklist.add(winnerName); //Add winner to blacklist
-//    }
+
+        //Random number generator is instance of random-class
+        Random randomNumberGenerator = new Random();
+
+        //List to save the winners
+        List<Winner> winners = new ArrayList<>();
+
+        //Choose ten random authorized winners
+        for (int i = 0; i < 10; i++) {
+            List<Winner> authorizedParticipants = participants.stream()
+                    .filter(p -> p.getBlacklistCounter() == 0) // Only authorized participants
+                    .collect(Collectors.toList());
+
+            if (authorizedParticipants.isEmpty()) {
+                break; // No more authorized participants
+            }
+        }
+        int index = randomNumberGenerator.nextInt(authorizedParticipants.size()); //Random Index
+        Winner winner = authorizedParticipants.get(index); //Choose Winner
+        winners.add(winner);//Add winner to winner list
+        winner.setBlacklistCounter(3);
+        winnerRepository.save(winner);
+        participants.remove(winner); //Remove winner from list
+    }
+
+    // Decrement blacklist counter for all non-winning participants
+        for(
+    Winner participant :participants)
+
+    {
+        if (participant.getBlacklistCounter() > 0) {
+            participant.setBlacklistCounter(participant.getBlacklistCounter() - 1);
+            winnerRepository.save(participant);
+        }
+    }
+        return winners;
+}
+
 //
 //    //Print out the ten random winners
 //    System.out.println("Die Gewinner sind:");
