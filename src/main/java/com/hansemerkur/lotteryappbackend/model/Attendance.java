@@ -6,7 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class attendance {
+public class Attendance {
 
     @Id
     @GeneratedValue

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-//is called by LandService and connection to the database is established
 @Transactional
 @Repository
 public class EventRepository {
