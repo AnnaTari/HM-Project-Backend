@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 @Repository
 public class EmployeeRepository {
     private static final Logger log = LoggerFactory.getLogger(EmployeeRepository.class);
@@ -18,7 +19,6 @@ public class EmployeeRepository {
     }
 
     public List<Employee> registerForEvent() {
-        System.out.println("SQL");
         try {
             return entityManager.createNativeQuery(
                             "SELECT * FROM LotteryUser a", Employee.class)
@@ -28,6 +28,7 @@ public class EmployeeRepository {
         }
         return List.of();
     }
+
     public Employee saveUser(Employee user) {
         entityManager.persist(user);
         return user;

@@ -1,3 +1,4 @@
+
 package com.hansemerkur.lotteryappbackend.service;
 
 import com.hansemerkur.lotteryappbackend.model.Event;
@@ -28,5 +29,10 @@ public class EventServicelmpl implements EventService {
     @Override
     public List<Event> deleteEvent(Event event) {
         return eventRepository.deleteEvent(event);
+    }
+
+    @Override
+    public List<Event> updateEvent(Event event) {
+        return eventRepository.updateEvent(event);
     }
 }
