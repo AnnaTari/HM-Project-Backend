@@ -1,17 +1,17 @@
 package com.hansemerkur.lotteryappbackend.dto;
 
 public class WinnerDto {
-    private String employee_id;
-    private String eventHsvId;
-    private String blacklistId;
+    private int employee_id;
+    private int eventHsvId;
+    private int blacklistId;
     private String name;
     private String email;
     private String escortName;
-    private String winner;
-    private String substituteWinner;
-    private String blacklistCounter;
+    private boolean winner;
+    private boolean substituteWinner;
+    private int blacklistCounter;
 
-    public WinnerDto(String employee_id, String eventHsvId, String blacklistId, String name, String email, String escortName, String winner, String substituteWinner, String blacklistCounter) {
+    public WinnerDto(int employee_id, int eventHsvId, int blacklistId, String name, String email, String escortName, boolean winner, boolean substituteWinner, int blacklistCounter) {
         this.employee_id = employee_id;
         this.eventHsvId = eventHsvId;
         this.blacklistId = blacklistId;
@@ -23,27 +23,27 @@ public class WinnerDto {
         this.blacklistCounter = blacklistCounter;
     }
 
-    public String getEmployeeId() {
+    public int getEmployeeId() {
         return employee_id;
     }
 
-    public void setEmployeeId(String employee_id) {
+    public void setEmployeeId(int employee_id) {
         this.employee_id = employee_id;
     }
 
-    public String getEventHsvId() {
+    public int getEventHsvId() {
         return eventHsvId;
     }
 
-    public void setEventHsvId(String eventHsvId) {
+    public void setEventHsvId(int eventHsvId) {
         this.eventHsvId = eventHsvId;
     }
 
-    public String getBlacklistId() {
+    public int getBlacklistId() {
         return blacklistId;
     }
 
-    public void setBlacklistId(String blacklistId) {
+    public void setBlacklistId(int blacklistId) {
         this.blacklistId = blacklistId;
     }
 
@@ -71,27 +71,27 @@ public class WinnerDto {
         this.escortName = escortName;
     }
 
-    public String getWinner() {
+    public boolean getWinner() {
         return winner;
     }
 
-    public void setWinner(String winner) {
+    public void setWinner(boolean winner) {
         this.winner = winner;
     }
 
-    public String getSubstituteWinner() {
+    public boolean getSubstituteWinner() {
         return substituteWinner;
     }
 
-    public void setSubstituteWinner(String substituteWinner) {
+    public void setSubstituteWinner(boolean substituteWinner) {
         this.substituteWinner = substituteWinner;
     }
 
-    public String getBlacklistCounter() {
+    public int getBlacklistCounter() {
         return blacklistCounter;
     }
 
-    public void setBlacklistCounter(String blacklistCounter) {
+    public void setBlacklistCounter(int blacklistCounter) {
         this.blacklistCounter = blacklistCounter;
     }
 }
