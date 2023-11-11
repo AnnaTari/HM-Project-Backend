@@ -18,8 +18,9 @@ public class WinnerController {
 
 
     //get attendances, name winners and give out winners
-    @PostMapping("/api/winner/{eventHsvId}")
-    public List<Winner> startLottery(@PathVariable Long eventHsvId) {
+    @PostMapping("")
+    public List<Winner> startLottery(@RequestBody Long eventHsvId) {
+        System.out.println(eventHsvId);
         return winnerService.selectWinners(eventHsvId);
     }
 

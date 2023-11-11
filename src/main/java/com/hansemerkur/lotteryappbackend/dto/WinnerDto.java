@@ -1,7 +1,7 @@
 package com.hansemerkur.lotteryappbackend.dto;
 
 public class WinnerDto {
-    private String userId;
+    private String employee_id;
     private String eventHsvId;
     private String blacklistId;
     private String name;

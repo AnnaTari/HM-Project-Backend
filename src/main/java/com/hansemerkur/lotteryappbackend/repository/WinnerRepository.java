@@ -5,9 +5,11 @@ import com.hansemerkur.lotteryappbackend.model.Winner;
 import jakarta.persistence.EntityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class WinnerRepository {
     private static final Logger log = LoggerFactory.getLogger(WinnerRepository.class);
 
@@ -17,11 +19,11 @@ public class WinnerRepository {
         this.entityManager = entityManager;
     }
 
-    public List<Winner> findByEventHsvId () {
+    public List<Winner> findByEventHsvId (Long eventHsvId) {
         System.out.println("SQL");
         try {
             return (List<Winner>) entityManager.createNativeQuery(
-                            "SELECT * FROM  hm_attendance a", Winner.class)
+                            "SELECT * FROM  hm_attendance", Winner.class)
                     .getResultList();
         } catch (Exception e) {
             log.warn(e.getMessage());
@@ -33,7 +35,7 @@ public class WinnerRepository {
     public void save(Winner winner) {
         try {
             entityManager.getTransaction().begin();
-            if (winner.getEmployee_id() == null) {
+            if (winner.getEmployee_id() ==0) {
                 // New entity
                 entityManager.persist(winner);
             } else {
