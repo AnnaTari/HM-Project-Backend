@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public class EmployeeRepository {
-    private static final Logger log = LoggerFactory.getLogger(EmployeeRepository.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeRepository.class);
 
     private final EntityManager entityManager;
 
@@ -24,7 +24,7 @@ public class EmployeeRepository {
                             "SELECT * FROM LotteryUser a", Employee.class)
                     .getResultList();
         } catch (Exception e) {
-            log.warn(e.getMessage());
+            LOGGER.warn(e.getMessage());
         }
         return List.of();
     }

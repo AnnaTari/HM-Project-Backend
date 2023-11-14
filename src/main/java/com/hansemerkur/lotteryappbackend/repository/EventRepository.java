@@ -10,10 +10,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+//Through this annotation you can open a transaction to commit your changes to the database
 @Transactional
 @Repository
 public class EventRepository {
-    private static final Logger log = LoggerFactory.getLogger(EventRepository.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EventRepository.class);
 
     private final EntityManager entityManager;
 
@@ -21,17 +22,19 @@ public class EventRepository {
         this.entityManager = entityManager;
     }
 
+    //Selects all events from the event_hsv table
     public List<Event> findAllEvents() {
         try {
             return (List<Event>) entityManager.createNativeQuery(
                             "SELECT * FROM  event_hsv a", Event.class)
                     .getResultList();
         } catch (Exception e) {
-            log.warn(e.getMessage());
+            LOGGER.warn(e.getMessage());
         }
         return List.of();
     }
 
+    //Adds an event with the given information from the admin in the frontend and it commits it
     public List<Event> addEvent(Event event) {
         try {
             entityManager.createNativeQuery("INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, picture,  deadline, ticket_type, ticket_amount, registration_date) VALUES (:adminId,:matchName, :matchDetails, :eventDate, :location, :picture, :deadline, :ticketType, :ticketAmount, :registrationDate)", Event.class)
@@ -48,11 +51,12 @@ public class EventRepository {
                     .executeUpdate();
             return findAllEvents();
         } catch (Exception e) {
-            log.warn(e.getMessage());
+            LOGGER.warn(e.getMessage());
         }
         return List.of();
     }
 
+    //Deletes an event by the unique event_hsv_id and commits the changes
     public List<Event> deleteEvent(Event event) {
         this.deleteForeignReferencesFromAttendance(event.getEventHsvId());
         try {
@@ -61,11 +65,12 @@ public class EventRepository {
                     .executeUpdate();
             return findAllEvents();
         } catch (Exception e) {
-            log.warn(e.getMessage());
+            LOGGER.warn(e.getMessage());
         }
         return List.of();
     }
 
+    //Updates all fields of an event by the unique event_hsv_id and commits the changes
     public List<Event> updateEvent(Event event) {
         this.deleteForeignReferencesFromAttendance(event.getEventHsvId());
         try {
@@ -75,7 +80,7 @@ public class EventRepository {
                     .executeUpdate();
             return findAllEvents();
         } catch (Exception e) {
-            log.warn(e.getMessage());
+            LOGGER.warn(e.getMessage());
         }
         return List.of();
     }
@@ -86,7 +91,7 @@ public class EventRepository {
                     .setParameter("foreignKeyValue", foreignKeyValue)
                     .executeUpdate();
         } catch (Exception e) {
-            log.warn(e.getMessage());
+            LOGGER.warn(e.getMessage());
         }
     }
 
