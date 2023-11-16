@@ -20,7 +20,6 @@ public class Event {
     private String matchDetails;
 
     private Date eventDate;
-    private Time eventTime;
     private String location;
     private byte[] picture;
     private Date deadline;
@@ -32,13 +31,12 @@ public class Event {
 
     }
 
-    public Event(Long eventHsvId, int adminId, String matchName, String matchDetails, Date eventDate, Time eventTime, String location, byte[] picture, Date deadline, Integer ticketType, Integer ticketAmount, Date registrationDate) {
+    public Event(Long eventHsvId, int adminId, String matchName, String matchDetails, Date eventDate, String location, byte[] picture, Date deadline, Integer ticketType, Integer ticketAmount, Date registrationDate) {
         this.eventHsvId = eventHsvId;
         this.adminId = adminId;
         this.matchName = matchName;
         this.matchDetails = matchDetails;
         this.eventDate = eventDate;
-        this.eventTime = eventTime;
         this.location = location;
         this.picture = picture;
         this.deadline = deadline;
@@ -85,14 +83,6 @@ public class Event {
 
     public void setEventDate(Date eventDate) {
         this.eventDate = eventDate;
-    }
-
-    public Time getEventTime() {
-        return eventTime;
-    }
-
-    public void setEventTime(Time eventTime) {
-        this.eventTime = eventTime;
     }
 
     public String getLocation() {
@@ -151,7 +141,6 @@ public class Event {
                 ", matchName='" + matchName + '\'' +
                 ", matchDetails='" + matchDetails + '\'' +
                 ", eventDate=" + eventDate +
-                ", eventTime=" + eventTime +
                 ", location='" + location + '\'' +
                 ", picture=" + Arrays.toString(picture) +
                 ", deadline=" + deadline +

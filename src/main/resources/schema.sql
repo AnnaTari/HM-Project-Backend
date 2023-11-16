@@ -22,7 +22,6 @@ CREATE TABLE event_hsv
     match_name        varchar(50)        NOT NULL,
     match_details     varchar(350)       NOT NULL,
     event_date        date               NOT NULL,
-    event_time        time without time zone,
     location          varchar(50)        NOT NULL,
     picture           blob,
     deadline          date               NOT NULL,
