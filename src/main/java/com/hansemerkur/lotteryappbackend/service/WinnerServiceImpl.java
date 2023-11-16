@@ -1,7 +1,6 @@
 package com.hansemerkur.lotteryappbackend.service;
 
 import com.hansemerkur.lotteryappbackend.model.Winner;
-import com.hansemerkur.lotteryappbackend.repository.EventRepository;
 import com.hansemerkur.lotteryappbackend.repository.WinnerRepository;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +21,7 @@ public class WinnerServiceImpl implements WinnerService {
     }
 
 
-    //Logic of generating winners with randomnumbergenerator
+    //Choosing winners with randomnumbergenerator
     @Override
     public List<Winner> selectWinners(Long eventHsvId) {
         List<Winner> participants = winnerRepository.findByEventHsvId(eventHsvId); //get participants
@@ -33,7 +32,7 @@ public class WinnerServiceImpl implements WinnerService {
         //Choose ten random authorized winners
         for (int i = 0; i < 10; i++) {
             List<Winner> authorizedParticipants = participants.stream()
-                    .filter(p -> p.getBlacklistCounter() == 0) // Only authorized participants
+                    .filter(p -> p.getBlacklistCounter() == 0) //Only authorized participants
                     .collect(Collectors.toList());
 
             if (authorizedParticipants.isEmpty()) {
@@ -57,7 +56,6 @@ public class WinnerServiceImpl implements WinnerService {
         }
 
         //Draw five substitute winners without increasing blacklist counter
-
         for (int i = 0; i < 5; i++) {
             List<Winner> authorizedParticipants = participants.stream()
                     .filter(p -> p.getBlacklistCounter() == 0)
@@ -72,7 +70,7 @@ public class WinnerServiceImpl implements WinnerService {
             participants.remove(substituteWinner); //Remove substitute winners from participant list
         }
 
-        // Add substitute winners to the main winners list
+
         winners.addAll(substituteWinners);
 
         return winners;

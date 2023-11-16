@@ -31,24 +31,21 @@ public class WinnerRepository {
         return List.of();
     }
 
-    //update blacklistcounter of the winner entities
-    public void save(Winner winner) {
+    public List<Winner> save (Winner winner) {
         try {
-            entityManager.getTransaction().begin();
-            if (winner.getEmployee_id() ==0) {
-                // New entity
-                entityManager.persist(winner);
-            } else {
-                // Existing entity
-                entityManager.merge(winner);
-            }
-            entityManager.getTransaction().commit();
+            //changes the escort_name, winner, and substitute_winner columns for the row where employee_id and event_hsv_id match the winners
+            entityManager.createNativeQuery("update hm_attendance set escort_name = :escortName, winner = :winner, substitute_winner = :substitueWinner where employee_id = :employeeId and event_hsv_id = :eventHsvId", Winner.class)
+                    .setParameter("employeeId", winner.getEmployee_id())
+                    .setParameter("eventHsvId", winner.getEventHsvId())
+                    .setParameter("escortName", winner.getEscortName())
+                    .setParameter("winner", winner.isWinner())
+                    .setParameter("substituteWinner", winner.isSubstituteWinner())
+                    .executeUpdate();
+
         } catch (Exception e) {
             log.warn(e.getMessage());
-            if (entityManager.getTransaction().isActive()) {
-                entityManager.getTransaction().rollback();
-            }
+        }
+        return List.of();
         }
     }
-
 }
