@@ -19,7 +19,7 @@ public class WinnerRepository {
         this.entityManager = entityManager;
     }
 
-    public List<Winner> findByEventHsvId (Long eventHsvId) {
+    public List<Winner> findByEventHsvId(Long eventHsvId) {
         System.out.println("SQL");
         try {
             return (List<Winner>) entityManager.createNativeQuery(
@@ -31,7 +31,7 @@ public class WinnerRepository {
         return List.of();
     }
 
-    public List<Winner> save (Winner winner) {
+    public List<Winner> saveToAttendance(Winner winner) {
         try {
             //changes the escort_name, winner, and substitute_winner columns for the row where employee_id and event_hsv_id match the winners
             entityManager.createNativeQuery("update hm_attendance set escort_name = :escortName, winner = :winner, substitute_winner = :substitueWinner where employee_id = :employeeId and event_hsv_id = :eventHsvId", Winner.class)
@@ -46,6 +46,17 @@ public class WinnerRepository {
             log.warn(e.getMessage());
         }
         return List.of();
+    }
+
+    //insert blacklistcounter into blacklist
+    public List<Winner> saveToBlacklist(Winner winner) {
+        try {
+            entityManager.createNativeQuery("insert into blacklist (blacklist_counter) values (:blacklistCounter where employee_id =:employeeId and event_hsv_Id = :eventHsvId", Winner.class)
+                    .setParameter("blacklistCounter", winner.getBlacklistCounter())
+                    .executeUpdate();
+        } catch (Exception e) {
+            log.warn(e.getMessage());
         }
+        return List.of();
     }
 }
