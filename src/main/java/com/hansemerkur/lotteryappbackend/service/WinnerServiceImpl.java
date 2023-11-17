@@ -43,7 +43,7 @@ public class WinnerServiceImpl implements WinnerService {
             Winner winner = authorizedParticipants.get(index); //Choose Winner
             winners.add(winner);//Add winner to winner list
             winner.setBlacklistCounter(3);
-            winnerRepository.save(winner);
+            winnerRepository.saveToAttendance(winner);
             participants.remove(winner); //Remove winner from Participants list
         }
 
@@ -51,7 +51,7 @@ public class WinnerServiceImpl implements WinnerService {
         for (Winner participant : participants) {
             if (participant.getBlacklistCounter() > 0) {
                 participant.setBlacklistCounter(participant.getBlacklistCounter() - 1);
-                winnerRepository.save(participant);
+                winnerRepository.saveToAttendance(participant);
             }
         }
 
