@@ -14,7 +14,9 @@ import java.util.stream.Collectors;
 public class WinnerServiceImpl implements WinnerService {
 
     private final WinnerRepository winnerRepository;
-    Random randomNumberGenerator = new Random(); //instance of random-class
+
+    //instance of random-class
+    Random randomNumberGenerator = new Random();
 
     public WinnerServiceImpl(WinnerRepository winnerRepository) {
         this.winnerRepository = winnerRepository;
@@ -32,22 +34,23 @@ public class WinnerServiceImpl implements WinnerService {
         //Choose ten random authorized winners
         for (int i = 0; i < 10; i++) {
             List<Winner> authorizedParticipants = participants.stream()
-                    .filter(p -> p.getBlacklistCounter() == 0) //Only authorized participants
+                    .filter(p -> p.getBlacklistCounter() == 0) //Only authorized participants whose blacklist counter is 0
                     .collect(Collectors.toList());
 
+            //stop when no more authorized participants available
             if (authorizedParticipants.isEmpty()) {
-                break; //stop when no more authorized participants available
+                break;
             }
 
             int index = randomNumberGenerator.nextInt(authorizedParticipants.size()); //Random Index
             Winner winner = authorizedParticipants.get(index); //Choose Winner
             winners.add(winner);//Add winner to winner list
-            winner.setBlacklistCounter(3);
-            winnerRepository.saveToAttendance(winner);
+            winner.setBlacklistCounter(3);//set winner´s blacklist counter to 3
+            winnerRepository.saveToAttendance(winner); //adapting attendance table
             participants.remove(winner); //Remove winner from Participants list
         }
 
-        //Decreasing blacklist counter for all non-winning participants
+        //Decreasing blacklist counter for all non-winning participants by 1
         for (Winner participant : participants) {
             if (participant.getBlacklistCounter() > 0) {
                 participant.setBlacklistCounter(participant.getBlacklistCounter() - 1);
@@ -60,6 +63,8 @@ public class WinnerServiceImpl implements WinnerService {
             List<Winner> authorizedParticipants = participants.stream()
                     .filter(p -> p.getBlacklistCounter() == 0)
                     .collect(Collectors.toList());
+
+            //stop when no more authorized participants available
             if (authorizedParticipants.isEmpty()) {
                 break;
             }
