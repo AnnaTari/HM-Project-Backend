@@ -46,6 +46,7 @@ public class WinnerServiceImpl implements WinnerService {
             Winner winner = authorizedParticipants.get(index); //Choose Winner
             winners.add(winner);//Add winner to winner list
             winner.setBlacklistCounter(3);//set winner´s blacklist counter to 3
+            winner.setWinner(true);
             winnerRepository.saveToAttendance(winner); //adapting attendance table
             participants.remove(winner); //Remove winner from Participants list
         }
@@ -71,6 +72,7 @@ public class WinnerServiceImpl implements WinnerService {
 
             int index = randomNumberGenerator.nextInt(authorizedParticipants.size()); // Random Index
             Winner substituteWinner = authorizedParticipants.get(index); //Choose substitute winners
+            substituteWinner.setSubstituteWinner(true);
             substituteWinners.add(substituteWinner); //Add substitute winners to the winner list
             participants.remove(substituteWinner); //Remove substitute winners from participant list
         }
