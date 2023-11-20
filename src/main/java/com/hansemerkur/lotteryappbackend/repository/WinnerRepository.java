@@ -21,10 +21,9 @@ public class WinnerRepository {
 
     //fetch all participants from hm_attendance table of the chosen event
     public List<Winner> findByEventHsvId(Long eventHsvId) {
-        System.out.println("SQL");
         try {
-            final List winnersRaw = entityManager.createNativeQuery("SELECT * FROM hm_attendance a JOIN employee e ON a.employee_id = e.employee_id").getResultList();
-            final List<Winner> winners = (List<Winner>) winnersRaw.stream().map(object -> {
+            final List<?> winnersRaw = entityManager.createNativeQuery("SELECT * FROM hm_attendance a JOIN employee e ON a.employee_id = e.employee_id WHERE event_hsv_id = :eventHsvId").setParameter("eventHsvId", eventHsvId).getResultList();
+            final List<Winner> winners = winnersRaw.stream().map(object -> {
                 Winner winner = new Winner();
                 winner.setEmployee_id((int) ((Object[]) object)[0]);
                 winner.setEventHsvId((int) ((Object[]) object)[1]);

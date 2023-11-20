@@ -55,7 +55,7 @@ public class WinnerServiceImpl implements WinnerService {
         for (Winner participant : participants) {
             if (participant.getBlacklistCounter() > 0) {
                 participant.setBlacklistCounter(participant.getBlacklistCounter() - 1);
-                winnerRepository.saveToAttendance(participant);
+                winnerRepository.saveToBlacklist(participant);
             }
         }
 
