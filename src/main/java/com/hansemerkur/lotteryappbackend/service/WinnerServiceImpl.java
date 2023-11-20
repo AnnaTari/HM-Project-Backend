@@ -15,7 +15,7 @@ public class WinnerServiceImpl implements WinnerService {
 
     private final WinnerRepository winnerRepository;
 
-    //instance of random-class
+    //Instance of random-class
     Random randomNumberGenerator = new Random();
 
     public WinnerServiceImpl(WinnerRepository winnerRepository) {
@@ -37,7 +37,7 @@ public class WinnerServiceImpl implements WinnerService {
                     .filter(p -> p.getBlacklistCounter() == 0) //Only authorized participants whose blacklist counter is 0
                     .collect(Collectors.toList());
 
-            //stop when no more authorized participants available
+            //Stop if no more authorized participants available
             if (authorizedParticipants.isEmpty()) {
                 break;
             }
@@ -45,9 +45,9 @@ public class WinnerServiceImpl implements WinnerService {
             int index = randomNumberGenerator.nextInt(authorizedParticipants.size()); //Random Index
             Winner winner = authorizedParticipants.get(index); //Choose Winner
             winners.add(winner);//Add winner to winner list
-            winner.setBlacklistCounter(3);//set winner´s blacklist counter to 3
-            winner.setWinner(true);
-            winnerRepository.saveToAttendance(winner); //adapting attendance table
+            winner.setBlacklistCounter(3);//Set winner´s blacklist counter to 3
+            winner.setWinner(true); //Set boolean "winner" true
+            winnerRepository.saveToAttendance(winner); //Adapting attendance table
             participants.remove(winner); //Remove winner from Participants list
         }
 
@@ -65,19 +65,19 @@ public class WinnerServiceImpl implements WinnerService {
                     .filter(p -> p.getBlacklistCounter() == 0)
                     .collect(Collectors.toList());
 
-            //stop when no more authorized participants available
+            //Stop if no more authorized participants available
             if (authorizedParticipants.isEmpty()) {
                 break;
             }
 
             int index = randomNumberGenerator.nextInt(authorizedParticipants.size()); // Random Index
             Winner substituteWinner = authorizedParticipants.get(index); //Choose substitute winners
-            substituteWinner.setSubstituteWinner(true);
-            substituteWinners.add(substituteWinner); //Add substitute winners to the winner list
+            substituteWinner.setSubstituteWinner(true); //Set boolean "substituteWinner" true
+            substituteWinners.add(substituteWinner); //Add a single substitute winner to the substitute winners list
             participants.remove(substituteWinner); //Remove substitute winners from participant list
         }
 
-
+        //Add all elements from substitute winner list to winner list
         winners.addAll(substituteWinners);
 
         return winners;
