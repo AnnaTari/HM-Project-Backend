@@ -2,7 +2,7 @@ package com.hansemerkur.lotteryappbackend.dto;
 
 //structure data from different tables in H2 which are necessary for the Lottery Process
 public class WinnerDto {
-    private int employee_id;
+    private int employeeId;
     private int eventHsvId;
     private int blacklistId;
     private String name;
@@ -13,8 +13,8 @@ public class WinnerDto {
     private int blacklistCounter;
 
     //constructor
-    public WinnerDto(int employee_id, int eventHsvId, int blacklistId, String name, String email, String escortName, boolean winner, boolean substituteWinner, int blacklistCounter) {
-        this.employee_id = employee_id;
+    public WinnerDto(int employeeId, int eventHsvId, int blacklistId, String name, String email, String escortName, boolean winner, boolean substituteWinner, int blacklistCounter) {
+        this.employeeId = employeeId;
         this.eventHsvId = eventHsvId;
         this.blacklistId = blacklistId;
         this.name = name;
@@ -27,11 +27,11 @@ public class WinnerDto {
 
     //getter and setter
     public int getEmployeeId() {
-        return employee_id;
+        return employeeId;
     }
 
-    public void setEmployeeId(int employee_id) {
-        this.employee_id = employee_id;
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
     public int getEventHsvId() {

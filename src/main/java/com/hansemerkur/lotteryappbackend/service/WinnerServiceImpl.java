@@ -15,9 +15,6 @@ public class WinnerServiceImpl implements WinnerService {
 
     private final WinnerRepository winnerRepository;
 
-    //Instance of random-class
-    Random randomNumberGenerator = new Random();
-
     public WinnerServiceImpl(WinnerRepository winnerRepository) {
         this.winnerRepository = winnerRepository;
     }
@@ -30,6 +27,8 @@ public class WinnerServiceImpl implements WinnerService {
         List<Winner> winners = new ArrayList<>(); //List to save the winners
         List<Winner> substituteWinners = new ArrayList<>(); //List to save substitute winners
 
+        //Instance of random-class
+        Random randomNumberGenerator = new Random();
 
         //Choose ten random authorized winners
         for (int i = 0; i < 10; i++) {
@@ -48,6 +47,7 @@ public class WinnerServiceImpl implements WinnerService {
             winner.setBlacklistCounter(3);//Set winner´s blacklist counter to 3
             winner.setWinner(true); //Set boolean "winner" true
             winnerRepository.saveToAttendance(winner); //Adapting attendance table
+            winnerRepository.maximizeBlacklistCounter(winner);
             participants.remove(winner); //Remove winner from Participants list
         }
 
@@ -55,7 +55,7 @@ public class WinnerServiceImpl implements WinnerService {
         for (Winner participant : participants) {
             if (participant.getBlacklistCounter() > 0) {
                 participant.setBlacklistCounter(participant.getBlacklistCounter() - 1);
-                winnerRepository.saveToBlacklist(participant);
+                winnerRepository.decreaseBlacklistCounter(participant);
             }
         }
 

@@ -3,7 +3,7 @@ package com.hansemerkur.lotteryappbackend.model;
 public class Winner {
 
     private long blacklistId;
-    private int employee_id;
+    private int employeeId;
     private int eventHsvId;
     private String name;
     private String email;
@@ -17,9 +17,9 @@ public class Winner {
     }
 
     //Constructor
-    public Winner(long blacklistId, int employee_id, int eventHsvId, String name, String email, String escortName, boolean winner, boolean substituteWinner, int blacklistCounter) {
+    public Winner(long blacklistId, int employeeId, int eventHsvId, String name, String email, String escortName, boolean winner, boolean substituteWinner, int blacklistCounter) {
         this.blacklistId = blacklistId;
-        this.employee_id = employee_id;
+        this.employeeId = employeeId;
         this.eventHsvId = eventHsvId;
         this.name = name;
         this.email = email;
@@ -37,12 +37,12 @@ public class Winner {
         this.blacklistId = blacklistId;
     }
 
-    public int getEmployee_id() {
-        return employee_id;
+    public int getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEmployee_id(int userId) {
-        this.employee_id = employee_id;
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
     public int getEventHsvId() {
@@ -106,7 +106,7 @@ public class Winner {
     public String toString() {
         return "Winner{" +
                 "blacklistId=" + blacklistId +
-                ", employee_id=" + employee_id +
+                ", employeeId=" + employeeId +
                 ", eventHsvId=" + eventHsvId +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
