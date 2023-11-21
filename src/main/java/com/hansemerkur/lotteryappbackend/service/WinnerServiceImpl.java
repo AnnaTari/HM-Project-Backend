@@ -20,10 +20,10 @@ public class WinnerServiceImpl implements WinnerService {
     }
 
 
-    //Choosing winners with randomnumbergenerator
+    //Retrieve participants for a specific event and create lists to store winners and substitute winners
     @Override
     public List<Winner> selectWinners(Long eventHsvId) {
-        List<Winner> participants = winnerRepository.findByEventHsvId(eventHsvId); //get participants
+        List<Winner> participants = winnerRepository.findByEventHsvId(eventHsvId); //Get participants
         List<Winner> winners = new ArrayList<>(); //List to save the winners
         List<Winner> substituteWinners = new ArrayList<>(); //List to save substitute winners
 

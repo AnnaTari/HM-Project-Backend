@@ -19,10 +19,10 @@ public class WinnerRepository {
         this.entityManager = entityManager;
     }
 
-    //fetch all participants from hm_attendance table of the chosen event
+    //fetch winner and related information and map raw result to winner objects
     public List<Winner> findByEventHsvId(Long eventHsvId) {
         try {
-            final List<?> winnersRaw = entityManager.createNativeQuery("SELECT * FROM hm_attendance a JOIN employee e ON a.employee_id = e.employee_id WHERE event_hsv_id = :eventHsvId").setParameter("eventHsvId", eventHsvId).getResultList();
+            final List<?> winnersRaw = entityManager.createNativeQuery("SELECT * FROM hm_attendance a JOIN employee e ON a.employee_id = e.employee_id LEFT JOIN blacklist bl ON a.employee_id = bl.employee_id WHERE a.event_hsv_id = :eventHsvId").setParameter("eventHsvId", eventHsvId).getResultList();
             final List<Winner> winners = winnersRaw.stream().map(object -> {
                 Winner winner = new Winner();
                 winner.setEmployeeId((int) ((Object[]) object)[0]);
@@ -32,6 +32,7 @@ public class WinnerRepository {
                 winner.setSubstituteWinner((Boolean) ((Object[]) object)[4]);
                 winner.setEmail((String) ((Object[]) object)[6]);
                 winner.setName((String) ((Object[]) object)[7]);
+                winner.setBlacklistCounter((int) ((Object[]) object)[11]);
                 return winner;
             }).collect(Collectors.toList());
 
@@ -42,7 +43,7 @@ public class WinnerRepository {
         return List.of();
     }
 
-    //updates the escort_name, winner, and substitute_winner columns for the row where employee_id and event_hsv_id match the winners
+    //update the escortName, winner, and substituteWinner of the selected winners and substitute winners
     public List<Winner> saveToAttendance(Winner winner) {
         try {
             entityManager.createNativeQuery("update hm_attendance set escort_name = :escortName, winner = :winner, substitute_winner = :substituteWinner where employee_id = :employeeId and event_hsv_id = :eventHsvId", Winner.class)
