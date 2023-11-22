@@ -52,7 +52,10 @@ public class WinnerRepository {
     //update the escortName, winner, and substituteWinner of the selected winners and substitute winners
     public List<Winner> saveToAttendance(Winner winner) {
         try {
-            entityManager.createNativeQuery("update hm_attendance set escort_name = :escortName, winner = :winner, substitute_winner = :substituteWinner where employee_id = :employeeId and event_hsv_id = :eventHsvId", Winner.class)
+            entityManager.createNativeQuery("""
+                    UPDATE hm_attendance 
+                    SET escort_name = :escortName, winner = :winner, substitute_winner = :substituteWinner 
+                    WHERE employee_id = :employeeId AND event_hsv_id = :eventHsvId""", Winner.class)
                     .setParameter("employeeId", winner.getEmployeeId())
                     .setParameter("eventHsvId", winner.getEventHsvId())
                     .setParameter("escortName", winner.getEscortName())
@@ -70,8 +73,12 @@ public class WinnerRepository {
     @Transactional
     public void maximizeBlacklistCounter(Winner winner) {
         try {
-            entityManager.createNativeQuery("update blacklist set blacklist_counter = 3 where employee_id =:employeeId")
+            entityManager.createNativeQuery("""
+                    UPDATE blacklist 
+                    SET blacklist_counter = 3 
+                    WHERE employee_id =:employeeId AND event_hsv_id = :eventHsvId""")
                     .setParameter("employeeId", winner.getEmployeeId())
+                    .setParameter("eventHsvId", winner.getEventHsvId())
                     .executeUpdate();
         } catch (Exception e) {
             log.error("Error while maximizing blacklistCounter",e);
@@ -82,9 +89,13 @@ public class WinnerRepository {
     @Transactional
     public void decreaseBlacklistCounter(Winner winner) {
         try {
-            entityManager.createNativeQuery("update blacklist set blacklist_counter = :blacklistCounter where employee_id =:employeeId")
+            entityManager.createNativeQuery("""
+                    UPDATE blacklist 
+                    SET blacklist_counter = :blacklistCounter 
+                    WHERE employee_id =:employeeId AND event_hsv_id = :eventHsvId""")
                     .setParameter("employeeId", winner.getEmployeeId())
-                    .setParameter("blacklistCounter", Math.max(0,winner.getBlacklistCounter() -1))
+                    .setParameter("eventHsvId", winner.getEventHsvId())
+                    .setParameter("blacklistCounter", Math.max(0,winner.getBlacklistCounter() -1)) //blacklistcounter cannot be below 0
                     .executeUpdate();
         } catch (Exception e) {
             log.warn(e.getMessage());
