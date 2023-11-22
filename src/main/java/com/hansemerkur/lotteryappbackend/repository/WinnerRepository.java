@@ -63,7 +63,7 @@ public class WinnerRepository {
     //set blacklistcounter for winners to three
     public List<Winner> maximizeBlacklistCounter(Winner winner) {
         try {
-            entityManager.createNativeQuery("update blacklist set blacklist_counter = :blacklistCounter where employee_id =:employeeId and event_hsv_Id = :eventHsvId", Winner.class)
+            entityManager.createNativeQuery("update blacklist set blacklist_counter = 3 where employee_id =:employeeId and event_hsv_Id = :eventHsvId", Winner.class)
                     .setParameter("blacklistCounter", winner.getBlacklistCounter())
                     .executeUpdate();
         } catch (Exception e) {
@@ -75,7 +75,7 @@ public class WinnerRepository {
     //decrease blacklistcounter for non-winning participants by 1
     public List<Winner> decreaseBlacklistCounter(Winner winner) {
         try {
-            entityManager.createNativeQuery("update blacklist set blacklist_counter = :blacklistCounter where employee_id =:employeeId and event_hsv_Id = :eventHsvId", Winner.class)
+            entityManager.createNativeQuery("update blacklist set blacklist_counter = blacklist_counter -1 where employee_id =:employeeId and event_hsv_Id = :eventHsvId", Winner.class)
                     .setParameter("blacklistCounter", winner.getBlacklistCounter())
                     .executeUpdate();
         } catch (Exception e) {

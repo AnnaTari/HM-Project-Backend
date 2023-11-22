@@ -44,19 +44,27 @@ public class WinnerServiceImpl implements WinnerService {
             int index = randomNumberGenerator.nextInt(authorizedParticipants.size()); //Random Index
             Winner winner = authorizedParticipants.get(index); //Choose Winner
             winners.add(winner);//Add winner to winner list
-            winner.setBlacklistCounter(3);//Set winner´s blacklist counter to 3
+            //winner.setBlacklistCounter(3);//Set winner´s blacklist counter to 3
             winner.setWinner(true); //Set boolean "winner" true
             winnerRepository.saveToAttendance(winner); //Adapting attendance table
-            winnerRepository.maximizeBlacklistCounter(winner);
             participants.remove(winner); //Remove winner from Participants list
         }
 
-        //Decreasing blacklist counter for all non-winning participants by 1
+        //Set blacklist counter of winners to three and decrease blacklist counter for all non-winning participants by 1
         for (Winner participant : participants) {
-            if (participant.getBlacklistCounter() > 0) {
-                participant.setBlacklistCounter(participant.getBlacklistCounter() - 1);
+            if (participant.isWinner()) {
+                winnerRepository.maximizeBlacklistCounter(participant);
+                winners.add(participant);
+            } else {
                 winnerRepository.decreaseBlacklistCounter(participant);
+                substituteWinners.add(participant);
             }
+
+
+            //if (participant.getBlacklistCounter() > 0) {
+            //                participant.setBlacklistCounter(participant.getBlacklistCounter() - 1);
+            //                winnerRepository.decreaseBlacklistCounter(participant);
+            //            }
         }
 
         //Draw five substitute winners without increasing blacklist counter
