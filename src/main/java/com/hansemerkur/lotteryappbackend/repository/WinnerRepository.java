@@ -2,6 +2,7 @@ package com.hansemerkur.lotteryappbackend.repository;
 
 import com.hansemerkur.lotteryappbackend.model.Winner;
 import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -22,7 +23,12 @@ public class WinnerRepository {
     //fetch winner and related information and map raw result to winner objects
     public List<Winner> findByEventHsvId(Long eventHsvId) {
         try {
-            final List<?> winnersRaw = entityManager.createNativeQuery("SELECT * FROM hm_attendance a JOIN employee e ON a.employee_id = e.employee_id LEFT JOIN blacklist bl ON a.employee_id = bl.employee_id WHERE a.event_hsv_id = :eventHsvId").setParameter("eventHsvId", eventHsvId).getResultList();
+            final List<?> winnersRaw = entityManager.createNativeQuery("""
+                SELECT a.employee_id, a.event_hsv_id, escort_name, winner, substitute_winner, employee_email, employee_name, blacklist_counter 
+                FROM hm_attendance a 
+                JOIN employee e ON a.employee_id = e.employee_id 
+                JOIN blacklist bl ON a.employee_id = bl.employee_id 
+                WHERE a.event_hsv_id = :eventHsvId""").setParameter("eventHsvId", eventHsvId).getResultList();
             final List<Winner> winners = winnersRaw.stream().map(object -> {
                 Winner winner = new Winner();
                 winner.setEmployeeId((int) ((Object[]) object)[0]);
@@ -30,9 +36,9 @@ public class WinnerRepository {
                 winner.setEscortName((String) ((Object[]) object)[2]);
                 winner.setWinner((Boolean) ((Object[]) object)[3]);
                 winner.setSubstituteWinner((Boolean) ((Object[]) object)[4]);
-                winner.setEmail((String) ((Object[]) object)[6]);
-                winner.setName((String) ((Object[]) object)[7]);
-                winner.setBlacklistCounter((int) ((Object[]) object)[11]);
+                winner.setEmail((String) ((Object[]) object)[5]);
+                winner.setName((String) ((Object[]) object)[6]);
+                winner.setBlacklistCounter((int) ((Object[]) object)[7]);
                 return winner;
             }).collect(Collectors.toList());
 
@@ -60,27 +66,28 @@ public class WinnerRepository {
         return List.of();
     }
 
-    //set blacklistcounter for winners to three
-    public List<Winner> maximizeBlacklistCounter(Winner winner) {
+    //set blacklistcounter for winners to 3
+    @Transactional
+    public void maximizeBlacklistCounter(Winner winner) {
         try {
-            entityManager.createNativeQuery("update blacklist set blacklist_counter = 3 where employee_id =:employeeId and event_hsv_Id = :eventHsvId", Winner.class)
-                    .setParameter("blacklistCounter", winner.getBlacklistCounter())
+            entityManager.createNativeQuery("update blacklist set blacklist_counter = 3 where employee_id =:employeeId")
+                    .setParameter("employeeId", winner.getEmployeeId())
                     .executeUpdate();
         } catch (Exception e) {
-            log.warn(e.getMessage());
+            log.error("Error while maximizing blacklistCounter",e);
         }
-        return List.of();
     }
 
     //decrease blacklistcounter for non-winning participants by 1
-    public List<Winner> decreaseBlacklistCounter(Winner winner) {
+    @Transactional
+    public void decreaseBlacklistCounter(Winner winner) {
         try {
-            entityManager.createNativeQuery("update blacklist set blacklist_counter = blacklist_counter -1 where employee_id =:employeeId and event_hsv_Id = :eventHsvId", Winner.class)
-                    .setParameter("blacklistCounter", winner.getBlacklistCounter())
+            entityManager.createNativeQuery("update blacklist set blacklist_counter = :blacklistCounter where employee_id =:employeeId")
+                    .setParameter("employeeId", winner.getEmployeeId())
+                    .setParameter("blacklistCounter", Math.max(0,winner.getBlacklistCounter() -1))
                     .executeUpdate();
         } catch (Exception e) {
             log.warn(e.getMessage());
         }
-        return List.of();
     }
 }

@@ -23,6 +23,7 @@ public class WinnerServiceImpl implements WinnerService {
     //Retrieve participants for a specific event and create lists to store winners and substitute winners
     @Override
     public List<Winner> selectWinners(Long eventHsvId) {
+        System.out.println("############");
         List<Winner> participants = winnerRepository.findByEventHsvId(eventHsvId); //Get participants
         List<Winner> winners = new ArrayList<>(); //List to save the winners
         List<Winner> substituteWinners = new ArrayList<>(); //List to save substitute winners
@@ -44,27 +45,15 @@ public class WinnerServiceImpl implements WinnerService {
             int index = randomNumberGenerator.nextInt(authorizedParticipants.size()); //Random Index
             Winner winner = authorizedParticipants.get(index); //Choose Winner
             winners.add(winner);//Add winner to winner list
-            //winner.setBlacklistCounter(3);//Set winner´s blacklist counter to 3
             winner.setWinner(true); //Set boolean "winner" true
             winnerRepository.saveToAttendance(winner); //Adapting attendance table
             participants.remove(winner); //Remove winner from Participants list
+            winnerRepository.maximizeBlacklistCounter(winner);
         }
 
         //Set blacklist counter of winners to three and decrease blacklist counter for all non-winning participants by 1
         for (Winner participant : participants) {
-            if (participant.isWinner()) {
-                winnerRepository.maximizeBlacklistCounter(participant);
-                winners.add(participant);
-            } else {
-                winnerRepository.decreaseBlacklistCounter(participant);
-                substituteWinners.add(participant);
-            }
-
-
-            //if (participant.getBlacklistCounter() > 0) {
-            //                participant.setBlacklistCounter(participant.getBlacklistCounter() - 1);
-            //                winnerRepository.decreaseBlacklistCounter(participant);
-            //            }
+            winnerRepository.decreaseBlacklistCounter(participant);
         }
 
         //Draw five substitute winners without increasing blacklist counter
