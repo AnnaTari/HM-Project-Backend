@@ -39,7 +39,7 @@ CREATE TABLE blacklist
     employee_id       INT NOT NULL,
     blacklist_counter INT NOT NULL,
     CONSTRAINT blacklist_pkey PRIMARY KEY (blacklist_id),
-    FOREIGN KEY (event_hsv_id) REFERENCES event_hsv (event_hsv_id)
+    FOREIGN KEY (event_hsv_id) REFERENCES event_hsv (event_hsv_id),
     FOREIGN KEY (employee_id) REFERENCES employee (employee_id)
 );
 
