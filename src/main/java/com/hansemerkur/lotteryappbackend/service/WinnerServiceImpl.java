@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+//Implementation of method selectWinners
 @Service
 public class WinnerServiceImpl implements WinnerService {
 
@@ -23,12 +24,11 @@ public class WinnerServiceImpl implements WinnerService {
     //Retrieve participants for a specific event and create lists to store winners and substitute winners
     @Override
     public List<Winner> selectWinners(Long eventHsvId) {
-        System.out.println("############");
         List<Winner> participants = winnerRepository.findByEventHsvId(eventHsvId); //Get participants
         List<Winner> winners = new ArrayList<>(); //List to save the winners
         List<Winner> substituteWinners = new ArrayList<>(); //List to save substitute winners
 
-        //Instance of random-class
+        //Instance of random class
         Random randomNumberGenerator = new Random();
 
         //Choose ten random authorized winners
@@ -48,10 +48,10 @@ public class WinnerServiceImpl implements WinnerService {
             winner.setWinner(true); //Set boolean "winner" true
             winnerRepository.saveToAttendance(winner); //Adapting attendance table
             participants.remove(winner); //Remove winner from Participants list
-            winnerRepository.maximizeBlacklistCounter(winner);
+            winnerRepository.maximizeBlacklistCounter(winner); //Set winner´s blacklist counter to 3
         }
 
-        //Set blacklist counter of winners to three and decrease blacklist counter for all non-winning participants by 1
+        //Decrease blacklist counter for all non-winning participants by 1
         for (Winner participant : participants) {
             winnerRepository.decreaseBlacklistCounter(participant);
         }

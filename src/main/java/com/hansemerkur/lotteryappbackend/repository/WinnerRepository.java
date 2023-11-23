@@ -20,7 +20,7 @@ public class WinnerRepository {
         this.entityManager = entityManager;
     }
 
-    //fetch winner and related information and map raw result to winner objects
+    //fetch participants and related information and map raw result to winner objects
     public List<Winner> findByEventHsvId(Long eventHsvId) {
         try {
             final List<?> winnersRaw = entityManager.createNativeQuery("""
