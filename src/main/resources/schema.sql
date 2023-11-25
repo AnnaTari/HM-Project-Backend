@@ -21,7 +21,7 @@ CREATE TABLE event_hsv
     admin_id          INT                NOT NULL,
     match_name        varchar(50)        NOT NULL,
     match_details     varchar(350)       NOT NULL,
-    event_date        date               NOT NULL,
+    event_date        datetime           NOT NULL,
     location          varchar(50)        NOT NULL,
     picture           blob,
     deadline          date               NOT NULL,

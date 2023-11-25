@@ -38,7 +38,7 @@ public class EventController {
         //needs to receive the picture separately from the event as a MultipartFile to get its bytes
         byte[] pictureBytes = picture.getBytes();
         event.setPicture(pictureBytes);
-        LOGGER.info(String.valueOf(event));
+        LOGGER.info(String.valueOf(event.getEventDate()));
         return eventService.addEvent(event);
     }
 
