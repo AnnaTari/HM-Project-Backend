@@ -33,7 +33,7 @@ CREATE TABLE event_hsv
 );
 CREATE TABLE blacklist
 (
-    blacklist_id      INT NOT NULL,
+    blacklist_id      INT AUTO_INCREMENT NOT NULL,
     event_hsv_id      INT NOT NULL,
     employee_id       INT NOT NULL,
     blacklist_counter INT NOT NULL,

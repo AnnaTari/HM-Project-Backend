@@ -1,5 +1,6 @@
 package com.hansemerkur.lotteryappbackend.service;
 
+import com.hansemerkur.lotteryappbackend.dto.RegistrationDto;
 import com.hansemerkur.lotteryappbackend.model.Employee;
 import com.hansemerkur.lotteryappbackend.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
@@ -15,11 +16,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.EmployeeRepository = EmployeeRepository;
     }
 
-    @Override
+     @Override
     public List<Employee> registerForEvent() {return EmployeeRepository.registerForEvent();}
 
-    public Employee saveUser(Employee user) {
-        // Implementieren Sie hier die Logik zum Speichern des Benutzers in der Datenbank
-        return EmployeeRepository.saveUser(user);
+    @Override
+    public Employee saveEmployee(RegistrationDto registrationDto) {
+        // logic to save employee in db
+        return EmployeeRepository.saveEmployee(registrationDto);
     }
 }
