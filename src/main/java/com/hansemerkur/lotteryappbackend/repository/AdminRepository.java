@@ -6,16 +6,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+//connects to the table hm_admin
 @Repository
 public class AdminRepository {
-    private static final Logger log = LoggerFactory.getLogger(AdminRepository.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdminRepository.class);
 
+    //With the entityManager you can make sql queries
     private final EntityManager entityManager;
 
     public AdminRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
+    //finds the admin entry in hm_admin with the unique username and password combination
     public Admin findAdminByUsernameAndPassword(String adminName, String adminPassword) {
         try {
             return (Admin) entityManager.createNativeQuery(
@@ -24,7 +27,7 @@ public class AdminRepository {
                     .setParameter("adminPassword", adminPassword)
                     .getSingleResult();
         } catch (Exception e) {
-            log.warn(e.getMessage());
+            LOGGER.warn(e.getMessage());
         }
         return new Admin();
     }

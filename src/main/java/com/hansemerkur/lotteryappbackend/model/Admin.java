@@ -2,11 +2,9 @@ package com.hansemerkur.lotteryappbackend.model;
 
 import jakarta.persistence.*;
 
-//Admin object ready for storage in H2
 @Entity
 public class Admin {
 
-    //AdminId automatically generated
     @Id
     @GeneratedValue
     private Long adminId;
@@ -18,32 +16,27 @@ public class Admin {
 
     }
 
-    public Admin(String adminName, String adminPassword) {
-        this.adminName = adminName;
-        this.adminPassword = adminPassword;
-    }
-
     public Long getAdminId() {
         return adminId;
-    }
-
-    public String getAdminName() {
-        return adminName;
-    }
-
-    public String getPassword() {
-        return adminPassword;
     }
 
     public void setAdminId(Long adminId) {
         this.adminId = adminId;
     }
 
+    public String getAdminName() {
+        return adminName;
+    }
+
     public void setAdminName(String adminName) {
         this.adminName = adminName;
     }
 
-    public void setPassword(String adminPassword) {
+    public String getAdminPassword() {
+        return adminPassword;
+    }
+
+    public void setAdminPassword(String adminPassword) {
         this.adminPassword = adminPassword;
     }
 

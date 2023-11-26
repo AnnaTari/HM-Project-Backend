@@ -1,8 +1,6 @@
 package com.hansemerkur.lotteryappbackend.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hansemerkur.lotteryappbackend.model.Event;
-import com.hansemerkur.lotteryappbackend.repository.AdminRepository;
 import com.hansemerkur.lotteryappbackend.service.EventService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,15 +9,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.util.List;
 
+//Accepts only requests from this origin (frontend) for the endpoint events
 @CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping(value = "/events")
-//Receives Event requests from Angular
 public class EventController {
 
-    private static final Logger log = LoggerFactory.getLogger(AdminRepository.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EventController.class);
 
     private final EventService eventService;
 
@@ -27,32 +26,33 @@ public class EventController {
         this.eventService = eventService;
     }
 
+    //gets all Events for the endpoint events
     @GetMapping()
     public List<Event> findAllEvents() {
         return eventService.findAllEvents();
     }
 
+    //adds an event into the database for the endpoint events/addEvent
     @PostMapping(value = "/addEvent", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public List<Event> addEvent(@RequestPart("event") String eventString, @RequestPart("picture") MultipartFile picture) throws IOException {
-        log.info(eventString);
-        ObjectMapper mapper = new ObjectMapper();
-        Event event = mapper.readValue(eventString, Event.class);
+    public List<Event> addEvent(@RequestPart("event") Event event, @RequestPart("picture") MultipartFile picture) throws IOException {
+        //needs to receive the picture separately from the event as a MultipartFile to get its bytes
         byte[] pictureBytes = picture.getBytes();
         event.setPicture(pictureBytes);
-        log.info(String.valueOf(event));
+        LOGGER.info(String.valueOf(event.getEventDate()));
         return eventService.addEvent(event);
     }
 
+    //updates an already existing event in the database for the endpoint events/updateEvent
     @PostMapping(value = "/updateEvent")
     public List<Event> updateEvent(@RequestBody Event event) {
         return eventService.updateEvent(event);
     }
 
 
+    //deletes an event from the database for the endpoint events/deleteEvent
     @PostMapping("/deleteEvent")
     public List<Event> deleteEvent(@RequestBody Event event) {
-        log.info(String.valueOf(event));
+        LOGGER.info(String.valueOf(event));
         return eventService.deleteEvent(event);
     }
-
 }
