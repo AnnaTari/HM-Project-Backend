@@ -7,10 +7,10 @@ import jakarta.persistence.Id;
 @Entity
 public class Employee {
 
-    //hm_user_id automatically generated
+    //hm_employee_id automatically generated
     @Id
     @GeneratedValue
-    private long employeeId;
+    private int employeeId;
 
     private String employeeName;
     private String employeeEmail;
@@ -20,18 +20,19 @@ public class Employee {
 
     }
 
+    // creating an Employee with name and email
     public Employee(String employeeName, String employeeEmail) {
         this.employeeName = employeeName;
         this.employeeEmail = employeeEmail;
     }
 
-    public long getEmployeeId() {return employeeId;}
+    public int getEmployeeId() {return employeeId;}
 
     public String getEmployeeName() {return employeeName;}
 
     public String getEmployeeEmail() {return employeeEmail;}
 
-    public void setEmployeeId(long employee_id) {this.employeeId = employee_id;}
+    public void setEmployeeId(int employee_id) {this.employeeId = employee_id;}
 
     public void setEmployeeName(String employeename) {this.employeeName = employeename;}
 
@@ -45,6 +46,7 @@ public class Employee {
                 ", employeeemail='" + employeeEmail + '\'' +
                 '}';
     }
+
 
 
 }
