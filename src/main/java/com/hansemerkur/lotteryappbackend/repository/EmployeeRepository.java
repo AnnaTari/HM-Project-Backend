@@ -2,13 +2,14 @@ package com.hansemerkur.lotteryappbackend.repository;
 
 import com.hansemerkur.lotteryappbackend.dto.RegistrationDto;
 import com.hansemerkur.lotteryappbackend.model.Employee;
-import com.hansemerkur.lotteryappbackend.model.attendance;
+import com.hansemerkur.lotteryappbackend.model.Attendance;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.*;
 import java.util.List;
 
 
@@ -45,7 +46,7 @@ public class EmployeeRepository {
             // Return true if the count is greater than 0
             return count > 0;
         } catch (Exception e) {
-            log.warn(e.getMessage());
+            LOGGER.warn(e.getMessage());
             return false;
         }
     }
@@ -57,7 +58,7 @@ public class EmployeeRepository {
 
             // Check if the employee already exists
             if (employeeExists(employeeEmail)) {
-                log.warn("Mitarbeiter mit E-Mail-Adresse {} existiert bereits.", employeeEmail);
+                LOGGER.warn("Mitarbeiter mit E-Mail-Adresse {} existiert bereits.", employeeEmail);
                 return new Employee();
             }
 
@@ -88,7 +89,7 @@ public class EmployeeRepository {
                 }
 
                 // Insert employee attendance into the 'hm_attendance' database table
-                entityManager.createNativeQuery("INSERT INTO hm_attendance (employee_id, event_hsv_id, escort_name, winner, substitute_winner) values (:employeeId, :eventHsvId, :escortName, :winner, :substituteWinner)", attendance.class)
+                entityManager.createNativeQuery("INSERT INTO hm_attendance (employee_id, event_hsv_id, escort_name, winner, substitute_winner) values (:employeeId, :eventHsvId, :escortName, :winner, :substituteWinner)", Attendance.class)
                         .setParameter("employeeId", employeeId)
                         .setParameter("eventHsvId", registrationDto.getEventHsvId())
                         .setParameter("escortName", registrationDto.getEscortName())
@@ -101,11 +102,11 @@ public class EmployeeRepository {
                         .setParameter("employeeId", employeeId)
                         .getSingleResult();
             } catch (Exception e) {
-                log.warn(e.getMessage());
+                LOGGER.warn(e.getMessage());
             }
             return new Employee();
         } catch (Exception e) {
-            log.warn(e.getMessage());
+            LOGGER.warn(e.getMessage());
         }
         return new Employee();
     }
