@@ -8,7 +8,7 @@ import java.sql.Time;
 import java.util.Arrays;
 import java.util.Date;
 
-@Entity //represents record we want to retrieve from the database
+@Entity
 public class Event {
     @Id
     @GeneratedValue

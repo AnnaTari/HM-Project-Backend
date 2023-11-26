@@ -2,7 +2,11 @@ package com.hansemerkur.lotteryappbackend.controller;
 
 import com.hansemerkur.lotteryappbackend.dto.RegistrationDto;
 import com.hansemerkur.lotteryappbackend.model.Employee;
+import com.hansemerkur.lotteryappbackend.repository.AdminRepository;
 import com.hansemerkur.lotteryappbackend.service.EmployeeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -13,6 +17,9 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping(value = "/employee")
 public class EmployeeController {
+  
+    private static final Logger log = LoggerFactory.getLogger(AdminRepository.class);
+  
     private final EmployeeService employeeService;
 
     public EmployeeController(EmployeeService EmployeeService) {

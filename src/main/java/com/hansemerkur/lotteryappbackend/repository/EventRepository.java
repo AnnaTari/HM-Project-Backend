@@ -1,3 +1,4 @@
+
 package com.hansemerkur.lotteryappbackend.repository;
 
 import com.hansemerkur.lotteryappbackend.model.Event;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-//is called by LandService and connection to the database is established
 @Transactional
 @Repository
 public class EventRepository {
@@ -34,24 +34,60 @@ public class EventRepository {
 
     public List<Event> addEvent(Event event) {
         try {
-            entityManager.createNativeQuery("INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, deadline, ticket_type, ticket_amount, registration_date) VALUES (:adminId,:matchName, :matchDetails, :eventDate, :location, :deadline, :ticketType, :ticketAmount, :registrationDate)", Event.class)
+            entityManager.createNativeQuery("INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, picture,  deadline, ticket_type, ticket_amount, registration_date) VALUES (:adminId,:matchName, :matchDetails, :eventDate, :location, :picture, :deadline, :ticketType, :ticketAmount, :registrationDate)", Event.class)
                     .setParameter("adminId", event.getAdminId())
                     .setParameter("matchName", event.getMatchName())
                     .setParameter("matchDetails", event.getMatchDetails())
                     .setParameter("eventDate", event.getEventDate())
                     .setParameter("location", event.getLocation())
+                    .setParameter("picture", event.getPicture())
                     .setParameter("deadline", event.getDeadline())
                     .setParameter("ticketType", event.getTicketType())
                     .setParameter("ticketAmount", event.getTicketAmount())
                     .setParameter("registrationDate", event.getRegistrationDate())
                     .executeUpdate();
-
-            return (List<Event>) entityManager.createNativeQuery(
-                            "SELECT * FROM  event_hsv a", Event.class)
-                    .getResultList();
+            return findAllEvents();
         } catch (Exception e) {
             log.warn(e.getMessage());
         }
         return List.of();
     }
+
+    public List<Event> deleteEvent(Event event) {
+        this.deleteForeignReferencesFromAttendance(event.getEventHsvId());
+        try {
+            entityManager.createNativeQuery("Delete from event_hsv where event_hsv_id = :eventHsvId")
+                    .setParameter("eventHsvId", event.getEventHsvId())
+                    .executeUpdate();
+            return findAllEvents();
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        }
+        return List.of();
+    }
+
+    public List<Event> updateEvent(Event event) {
+        this.deleteForeignReferencesFromAttendance(event.getEventHsvId());
+        try {
+            entityManager.createNativeQuery("UPDATE event_hsv SET  match_name = :matchName where event_hsv_id = :eventHsvId")
+                    .setParameter("eventHsvId", event.getEventHsvId())
+                    .setParameter("matchName", event.getMatchName())
+                    .executeUpdate();
+            return findAllEvents();
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        }
+        return List.of();
+    }
+
+    private void deleteForeignReferencesFromAttendance(Long foreignKeyValue) {
+        try {
+            entityManager.createNativeQuery("Delete from hm_attendance where event_hsv_id = :foreignKeyValue")
+                    .setParameter("foreignKeyValue", foreignKeyValue)
+                    .executeUpdate();
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        }
+    }
+
 }
