@@ -32,14 +32,15 @@ INSERT INTO employee (employee_name, employee_email) VALUES ('Luis Kraus', 'Luis
 INSERT INTO employee (employee_name, employee_email) VALUES ('Marta Voss', 'Marta.Voss@hansemerkur.de');
 INSERT INTO employee (employee_name, employee_email) VALUES ('Alex Lange', 'Alex.Lange@hansemerkur.de');
 INSERT INTO employee (employee_name, employee_email) VALUES ('Robert Haus', 'Robert.Haus@hansemerkur.de');
-INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, picture, deadline,ticket_type, ticket_amount, registration_date) VALUES (1,'HSV vs. St. Pauli', 'Derby', '2024-01-13 17:00:00', 'Volksparkstadion', 'placeholder', '2023-12-14', 2, 20, '2023-10-29');
-INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, picture, deadline,ticket_type, ticket_amount, registration_date) VALUES (2,'HSV vs. BVB', 'Derby', '2023-12-21 17:00:00', 'Volksparkstadion', 'placeholder', '2023-12-15', 2, 20, '2023-11-30');
-INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, picture, deadline,ticket_type, ticket_amount, registration_date) VALUES (3,'HSV vs. Hertha', 'Derby', '2024-01-21 17:00:00', 'Volksparkstadion', 'placeholder', '2024-01-17', 2, 20, '2023-11-24');
-INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, picture, deadline,ticket_type, ticket_amount, registration_date) VALUES (1,'HSV vs. Fortuna', 'Derby', '2023-11-21 17:00:00', 'Volksparkstadion', 'placeholder', '2023-11-20', 2, 20, '2023-11-01');
-INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, picture, deadline,ticket_type, ticket_amount, registration_date) VALUES (2,'HSV vs. Rostock', 'Derby', '2024-01-30 17:00:00', 'Volksparkstadion', 'placeholder', '2023-11-04', 2, 20, '2023-10-11');
-INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, picture, deadline,ticket_type, ticket_amount, registration_date) VALUES (3,'HSV vs. St. Pauli', 'Derby', '2023-10-21 17:00:00', 'Volksparkstadion', 'placeholder', '2023-10-30', 2, 20, '2023-10-29');
-INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, picture, deadline,ticket_type, ticket_amount, registration_date) VALUES (1,'HSV vs. BVB', 'Derby', '2023-10-21 17:00:00', 'Volksparkstadion', 'placeholder', '2023-10-30', 2, 20, '2023-11-30');
-INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, picture, deadline,ticket_type, ticket_amount, registration_date) VALUES (2,'HSV vs. Kiel', 'Derby', '2023-11-21 17:00:00', 'Volksparkstadion', 'placeholder', '2023-11-10', 2, 20, '2023-10-30');
+--Actual Events
+INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, picture, deadline,ticket_type, ticket_amount, registration_date) VALUES (1,'HSV vs. St. Pauli', 'Derby', current_timestamp + 20, 'Volksparkstadion', 'placeholder', current_date + 10, 2, 20, current_date - 20);
+INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, picture, deadline,ticket_type, ticket_amount, registration_date) VALUES (3,'HSV vs. Hertha', 'Derby', current_timestamp + 40, 'Volksparkstadion', 'placeholder', current_date + 30, 2, 20, current_date -5);
+--Future Events
+INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, picture, deadline,ticket_type, ticket_amount, registration_date) VALUES (2,'HSV vs. BVB', 'Derby', current_timestamp +20, 'Volksparkstadion', 'placeholder', current_date + 15, 2, 20, current_date + 5);
+INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, picture, deadline,ticket_type, ticket_amount, registration_date) VALUES (1,'HSV vs. Fortuna', 'Derby', current_timestamp + 25, 'Volksparkstadion', 'placeholder', current_date +20, 2, 20, current_date + 10);
+--Expired Events
+INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, picture, deadline,ticket_type, ticket_amount, registration_date) VALUES (2,'HSV vs. Rostock', 'Derby', CURRENT_TIMESTAMP + 2, 'Volksparkstadion', 'placeholder', current_date-2, 2, 20, current_date-10);
+
 INSERT INTO hm_attendance (employee_id, event_hsv_id, escort_name, winner, substitute_winner) VALUES (1,5,'Lara', false, false);
 INSERT INTO hm_attendance (employee_id, event_hsv_id, escort_name, winner, substitute_winner) VALUES (2,5,'Mats', false, false);
 INSERT INTO hm_attendance (employee_id, event_hsv_id, escort_name, winner, substitute_winner) VALUES (3,5,'Karl', false, false);
