@@ -1,7 +1,9 @@
+/* admin testdata*/
 INSERT INTO hm_admin (admin_name, admin_password) VALUES ('Yasch', '1234');
 INSERT INTO hm_admin (admin_name, admin_password) VALUES ('Lara', '1234');
 INSERT INTO hm_admin (admin_name, admin_password) VALUES ('Anastasia', '1234');
 
+/*employee testdata*/
 INSERT INTO employee (employee_name, employee_email) VALUES ('Anastasia Tatarinov', 'Anastasia.Tatarinov@hansemerkur.de');
 INSERT INTO employee (employee_name, employee_email) VALUES ('Yasch Gahi', 'Yasch.Gahi@hansemerkur.de');
 INSERT INTO employee (employee_name, employee_email) VALUES ('Lara Köchel', 'Lara.Koechel@hansemerkur.de');
@@ -32,6 +34,8 @@ INSERT INTO employee (employee_name, employee_email) VALUES ('Luis Kraus', 'Luis
 INSERT INTO employee (employee_name, employee_email) VALUES ('Marta Voss', 'Marta.Voss@hansemerkur.de');
 INSERT INTO employee (employee_name, employee_email) VALUES ('Alex Lange', 'Alex.Lange@hansemerkur.de');
 INSERT INTO employee (employee_name, employee_email) VALUES ('Robert Haus', 'Robert.Haus@hansemerkur.de');
+
+/*event testdata*/
 INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, picture, deadline,ticket_type, ticket_amount, registration_date) VALUES (1,'HSV vs. St. Pauli', 'Derby', '2024-01-13 17:00:00', 'Volksparkstadion', 'placeholder', '2023-12-14', 2, 20, '2023-10-29');
 INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, picture, deadline,ticket_type, ticket_amount, registration_date) VALUES (2,'HSV vs. BVB', 'Derby', '2023-12-21 17:00:00', 'Volksparkstadion', 'placeholder', '2023-12-15', 2, 20, '2023-11-30');
 INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, picture, deadline,ticket_type, ticket_amount, registration_date) VALUES (3,'HSV vs. Hertha', 'Derby', '2024-01-21 17:00:00', 'Volksparkstadion', 'placeholder', '2024-01-17', 2, 20, '2023-11-24');
@@ -40,6 +44,8 @@ INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location,
 INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, picture, deadline,ticket_type, ticket_amount, registration_date) VALUES (3,'HSV vs. St. Pauli', 'Derby', '2023-10-21 17:00:00', 'Volksparkstadion', 'placeholder', '2023-10-30', 2, 20, '2023-10-29');
 INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, picture, deadline,ticket_type, ticket_amount, registration_date) VALUES (1,'HSV vs. BVB', 'Derby', '2023-10-21 17:00:00', 'Volksparkstadion', 'placeholder', '2023-10-30', 2, 20, '2023-11-30');
 INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, picture, deadline,ticket_type, ticket_amount, registration_date) VALUES (2,'HSV vs. Kiel', 'Derby', '2023-11-21 17:00:00', 'Volksparkstadion', 'placeholder', '2023-11-10', 2, 20, '2023-10-30');
+
+/*attendance testdata*/
 INSERT INTO hm_attendance (employee_id, event_hsv_id, escort_name, winner, substitute_winner) VALUES (1,5,'Lara', false, false);
 INSERT INTO hm_attendance (employee_id, event_hsv_id, escort_name, winner, substitute_winner) VALUES (2,5,'Mats', false, false);
 INSERT INTO hm_attendance (employee_id, event_hsv_id, escort_name, winner, substitute_winner) VALUES (3,5,'Karl', false, false);
@@ -70,6 +76,8 @@ INSERT INTO hm_attendance (employee_id, event_hsv_id, escort_name, winner, subst
 INSERT INTO hm_attendance (employee_id, event_hsv_id, escort_name, winner, substitute_winner) VALUES (28,5,'Karl', false, false);
 INSERT INTO hm_attendance (employee_id, event_hsv_id, escort_name, winner, substitute_winner) VALUES (29,5,'Anastasia', false, false);
 INSERT INTO hm_attendance (employee_id, event_hsv_id, escort_name, winner, substitute_winner) VALUES (30,5,'Yasch', false, false);
+
+/*blacklist testdata*/
 INSERT INTO blacklist (event_hsv_id, employee_id, blacklist_counter) VALUES (5,1,0);
 INSERT INTO blacklist (event_hsv_id, employee_id, blacklist_counter) VALUES (5,2,0);
 INSERT INTO blacklist (event_hsv_id, employee_id, blacklist_counter) VALUES (5,3,0);
