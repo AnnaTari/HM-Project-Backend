@@ -1,15 +1,11 @@
 package com.hansemerkur.lotteryappbackend.service;
-
 import com.hansemerkur.lotteryappbackend.model.Event;
 import com.hansemerkur.lotteryappbackend.model.Winner;
 import com.hansemerkur.lotteryappbackend.repository.EventRepository;
 import com.hansemerkur.lotteryappbackend.repository.WinnerRepository;
 import org.springframework.stereotype.Service;
-
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -24,7 +20,6 @@ public class WinnerServiceImpl implements WinnerService {
         this.winnerRepository = winnerRepository;
         this.eventRepository = eventRepository;
     }
-
 
     //Retrieve participants for a specific event and create lists to store winners and substitute winners
     @Override

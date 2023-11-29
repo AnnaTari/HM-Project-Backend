@@ -12,7 +12,6 @@ public class Winner {
     private boolean winner;
     private boolean substituteWinner;
     private int blacklistCounter;
-    private int ticketAmount;
 
     public Winner () {
 
@@ -29,7 +28,6 @@ public class Winner {
         this.winner = winner;
         this.substituteWinner = substituteWinner;
         this.blacklistCounter = blacklistCounter;
-        this.ticketAmount= ticketAmount;
     }
 
     //define getter and setter
@@ -104,9 +102,6 @@ public class Winner {
     public void setBlacklistCounter(int blacklistCounter) {
         this.blacklistCounter = blacklistCounter;
     }
-    public int getTicketAmount() {return ticketAmount; }
-
-    public void setTicketAmount(int ticketAmount) { this.ticketAmount = ticketAmount; }
 
     //generate string representation
     @Override
@@ -121,7 +116,6 @@ public class Winner {
                 ", winner=" + winner +
                 ", substituteWinner=" + substituteWinner +
                 ", blacklistCounter=" + blacklistCounter +
-                ", ticketAmount=" + ticketAmount +
                 '}';
     }
 }

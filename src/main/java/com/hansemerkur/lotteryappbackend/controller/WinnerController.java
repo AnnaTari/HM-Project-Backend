@@ -17,7 +17,6 @@ public class WinnerController {
     private final WinnerService winnerService;
     public WinnerController(WinnerService winnerService) {this.winnerService = winnerService;}
 
-
     //getting the request "startLottery" from Angular
     @PostMapping()
     public List<Winner> startLottery(@RequestBody Long eventHsvId) {
