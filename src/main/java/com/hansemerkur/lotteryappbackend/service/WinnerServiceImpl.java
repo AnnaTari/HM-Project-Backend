@@ -1,12 +1,15 @@
 package com.hansemerkur.lotteryappbackend.service;
 
+import com.hansemerkur.lotteryappbackend.model.Event;
 import com.hansemerkur.lotteryappbackend.model.Winner;
+import com.hansemerkur.lotteryappbackend.repository.EventRepository;
 import com.hansemerkur.lotteryappbackend.repository.WinnerRepository;
 import org.springframework.stereotype.Service;
 
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -15,9 +18,11 @@ import java.util.stream.Collectors;
 public class WinnerServiceImpl implements WinnerService {
 
     private final WinnerRepository winnerRepository;
+    private final EventRepository eventRepository;
 
-    public WinnerServiceImpl(WinnerRepository winnerRepository) {
+    public WinnerServiceImpl(WinnerRepository winnerRepository, EventRepository eventRepository) {
         this.winnerRepository = winnerRepository;
+        this.eventRepository = eventRepository;
     }
 
 
@@ -31,8 +36,12 @@ public class WinnerServiceImpl implements WinnerService {
         //Instance of random class
         Random randomNumberGenerator = new Random();
 
-        //Choose ten random authorized winners
-        for (int i = 0; i < 10; i++) {
+        //Retrieve event object using eventRepository and get the ticketAmount
+        Event event = eventRepository.findEvent(eventHsvId);
+        int ticketAmount = event.getTicketAmount();
+
+        //Choose predefined amount of random authorized winners
+        for (int i = 0; i < ticketAmount ; i++) {
             List<Winner> authorizedParticipants = participants.stream()
                     .filter(p -> p.getBlacklistCounter() == 0) //Only authorized participants whose blacklist counter is 0
                     .collect(Collectors.toList());

@@ -1,5 +1,6 @@
 package com.hansemerkur.lotteryappbackend.model;
 
+//Winner class to model the necessary data
 public class Winner {
 
     private long blacklistId;
@@ -11,13 +12,14 @@ public class Winner {
     private boolean winner;
     private boolean substituteWinner;
     private int blacklistCounter;
+    private int ticketAmount;
 
     public Winner () {
 
     }
 
-    //Constructor
-    public Winner(long blacklistId, int employeeId, int eventHsvId, String name, String email, String escortName, boolean winner, boolean substituteWinner, int blacklistCounter) {
+    //Constructor with parameters
+    public Winner(long blacklistId, int employeeId, int eventHsvId, String name, String email, String escortName, boolean winner, boolean substituteWinner, int blacklistCounter, int ticketAmount) {
         this.blacklistId = blacklistId;
         this.employeeId = employeeId;
         this.eventHsvId = eventHsvId;
@@ -27,8 +29,10 @@ public class Winner {
         this.winner = winner;
         this.substituteWinner = substituteWinner;
         this.blacklistCounter = blacklistCounter;
+        this.ticketAmount= ticketAmount;
     }
 
+    //define getter and setter
     public long getBlacklistId() {
         return blacklistId;
     }
@@ -100,8 +104,11 @@ public class Winner {
     public void setBlacklistCounter(int blacklistCounter) {
         this.blacklistCounter = blacklistCounter;
     }
+    public int getTicketAmount() {return ticketAmount; }
 
+    public void setTicketAmount(int ticketAmount) { this.ticketAmount = ticketAmount; }
 
+    //generate string representation
     @Override
     public String toString() {
         return "Winner{" +
@@ -114,6 +121,7 @@ public class Winner {
                 ", winner=" + winner +
                 ", substituteWinner=" + substituteWinner +
                 ", blacklistCounter=" + blacklistCounter +
+                ", ticketAmount=" + ticketAmount +
                 '}';
     }
 }

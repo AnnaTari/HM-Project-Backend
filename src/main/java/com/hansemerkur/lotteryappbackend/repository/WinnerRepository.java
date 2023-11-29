@@ -12,10 +12,13 @@ import java.util.stream.Collectors;
 
 @Repository
 public class WinnerRepository {
+
+    //initialize logger and entityManager instance
     private static final Logger log = LoggerFactory.getLogger(WinnerRepository.class);
 
     private final EntityManager entityManager;
 
+    //inject entitiyManager to WinnerRepository class to interact
     public WinnerRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
@@ -24,7 +27,7 @@ public class WinnerRepository {
     public List<Winner> findByEventHsvId(Long eventHsvId) {
         try {
             final List<?> winnersRaw = entityManager.createNativeQuery("""
-                SELECT a.employee_id, a.event_hsv_id, escort_name, winner, substitute_winner, employee_email, employee_name, blacklist_counter 
+                SELECT a.employee_id, a.event_hsv_id, escort_name, winner, substitute_winner, employee_email, employee_name, blacklist_counter
                 FROM hm_attendance a 
                 JOIN employee e ON a.employee_id = e.employee_id 
                 JOIN blacklist bl ON a.employee_id = bl.employee_id 
@@ -51,52 +54,52 @@ public class WinnerRepository {
 
     //update the escortName, winner, and substituteWinner of the selected winners and substitute winners
     public List<Winner> saveToAttendance(Winner winner) {
-        try {
-            entityManager.createNativeQuery("""
-                    UPDATE hm_attendance 
-                    SET escort_name = :escortName, winner = :winner, substitute_winner = :substituteWinner 
-                    WHERE employee_id = :employeeId AND event_hsv_id = :eventHsvId""", Winner.class)
-                    .setParameter("employeeId", winner.getEmployeeId())
-                    .setParameter("eventHsvId", winner.getEventHsvId())
-                    .setParameter("escortName", winner.getEscortName())
-                    .setParameter("winner", winner.isWinner())
-                    .setParameter("substituteWinner", winner.isSubstituteWinner())
-                    .executeUpdate();
+            try {
+                entityManager.createNativeQuery("""
+                        UPDATE hm_attendance
+                        SET escort_name = :escortName, winner = :winner, substitute_winner = :substituteWinner
+                        WHERE employee_id = :employeeId AND event_hsv_id = :eventHsvId""", Winner.class)
+                        .setParameter("employeeId", winner.getEmployeeId())
+                        .setParameter("eventHsvId", winner.getEventHsvId())
+                        .setParameter("escortName", winner.getEscortName())
+                        .setParameter("winner", winner.isWinner())
+                        .setParameter("substituteWinner", winner.isSubstituteWinner())
+                        .executeUpdate();
 
-        } catch (Exception e) {
-            log.warn(e.getMessage());
+            } catch (Exception e) {
+                log.warn(e.getMessage());
+            }
+            return List.of();
         }
-        return List.of();
-    }
 
     //set blacklistcounter for winners to 3
-    @Transactional
-    public void maximizeBlacklistCounter(Winner winner) {
-        try {
-            entityManager.createNativeQuery("""
-                    UPDATE blacklist 
-                    SET blacklist_counter = 3 
-                    WHERE employee_id =:employeeId""")
-                    .setParameter("employeeId", winner.getEmployeeId())
-                    .executeUpdate();
-        } catch (Exception e) {
-            log.error("Error while maximizing blacklistCounter",e);
+     @Transactional
+        public void maximizeBlacklistCounter(Winner winner) {
+            try {
+                entityManager.createNativeQuery("""
+                        UPDATE blacklist
+                        SET blacklist_counter = 3
+                        WHERE employee_id =:employeeId""")
+                        .setParameter("employeeId", winner.getEmployeeId())
+                        .executeUpdate();
+            } catch (Exception e) {
+                log.error("Error while maximizing blacklistCounter",e);
+            }
         }
-    }
 
     //decrease blacklistcounter for non-winning participants by 1
-    @Transactional
-    public void decreaseBlacklistCounter(Winner winner) {
-        try {
-            entityManager.createNativeQuery("""
-                    UPDATE blacklist 
-                    SET blacklist_counter = :blacklistCounter 
-                    WHERE employee_id =:employeeId""")
-                    .setParameter("employeeId", winner.getEmployeeId())
-                    .setParameter("blacklistCounter", Math.max(0,winner.getBlacklistCounter() -1)) //blacklistcounter cannot be below 0
-                    .executeUpdate();
-        } catch (Exception e) {
-            log.warn(e.getMessage());
+     @Transactional
+        public void decreaseBlacklistCounter(Winner winner) {
+            try {
+                entityManager.createNativeQuery("""
+                        UPDATE blacklist
+                        SET blacklist_counter = :blacklistCounter
+                        WHERE employee_id =:employeeId""")
+                        .setParameter("employeeId", winner.getEmployeeId())
+                        .setParameter("blacklistCounter", Math.max(0,winner.getBlacklistCounter() -1)) //blacklistcounter cannot be below 0
+                        .executeUpdate();
+            } catch (Exception e) {
+                log.warn(e.getMessage());
+            }
         }
-    }
 }

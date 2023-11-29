@@ -104,4 +104,17 @@ public class EventRepository {
         }
     }
 
+    //get an explicit event to get the ticket amount in WinnerServiceImpl
+    public Event findEvent(long eventHsvID) {
+        try {
+            return (Event) entityManager.createNativeQuery(
+                            "SELECT * FROM event_hsv WHERE event_hsv_id = :eventHsvId", Event.class)
+                    .setParameter("eventHsvId", eventHsvID)
+                    .getSingleResult();
+        } catch (Exception e) {
+            LOGGER.warn(e.getMessage());
+        }
+        return null;
+    }
+
 }
