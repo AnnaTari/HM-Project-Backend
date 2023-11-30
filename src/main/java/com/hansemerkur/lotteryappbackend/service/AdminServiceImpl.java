@@ -2,10 +2,11 @@ package com.hansemerkur.lotteryappbackend.service;
 
 import com.hansemerkur.lotteryappbackend.model.Admin;
 import com.hansemerkur.lotteryappbackend.repository.AdminRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AdminServiceImpl implements AdminService{
+public class AdminServiceImpl implements AdminService {
 
     private final AdminRepository adminRepository;
 
@@ -15,6 +16,13 @@ public class AdminServiceImpl implements AdminService{
 
     @Override
     public Admin findAdminByUsernameAndPassword(String adminName, String adminPassword) {
-        return adminRepository.findAdminByUsernameAndPassword(adminName, adminPassword);
+        Admin admin = adminRepository.findAdminByUsername(adminName);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        boolean passwordMatches = encoder.matches(adminPassword, admin.getAdminPassword());
+        if (passwordMatches) {
+            return admin;
+        } else {
+            return new Admin();
+        }
     }
 }

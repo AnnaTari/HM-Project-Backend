@@ -9,10 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.sql.Time;
 import java.util.List;
 
-//Accepts only requests from this origin (frontend) for the endpoint events
+//Accepts only requests from this origin (frontend) for the endpoint: events
 @CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping(value = "/events")
@@ -43,8 +42,11 @@ public class EventController {
     }
 
     //updates an already existing event in the database for the endpoint events/updateEvent
-    @PostMapping(value = "/updateEvent")
-    public List<Event> updateEvent(@RequestBody Event event) {
+    @PostMapping(value = "/updateEvent", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public List<Event> updateEvent(@RequestPart("event") Event event, @RequestPart("picture") MultipartFile picture) throws IOException {
+        //needs to receive the picture separately from the event as a MultipartFile to get its bytes
+        byte[] pictureBytes = picture.getBytes();
+        event.setPicture(pictureBytes);
         return eventService.updateEvent(event);
     }
 
