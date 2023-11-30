@@ -5,8 +5,6 @@ import com.hansemerkur.lotteryappbackend.model.Employee;
 import com.hansemerkur.lotteryappbackend.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
@@ -16,8 +14,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.EmployeeRepository = EmployeeRepository;
     }
 
-     @Override
-    public List<Employee> registerForEvent() {return EmployeeRepository.registerForEvent();}
 
     @Override
     public Employee saveEmployee(RegistrationDto registrationDto) {

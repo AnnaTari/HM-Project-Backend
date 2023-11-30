@@ -9,32 +9,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import javax.swing.*;
-import java.util.List;
-
-
+ // connection to db tables
 @Transactional
 @Repository
 public class EmployeeRepository {
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeRepository.class);
 
+    // sql queries possible
     private final EntityManager entityManager;
 
     public EmployeeRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
-    public List<Employee> registerForEvent() {
-        System.out.println("register");
-        try {
-            return entityManager.createNativeQuery(
-                            "SELECT * FROM LotteryUser a", Employee.class)
-                    .getResultList();
-        } catch (Exception e) {
-            LOGGER.warn(e.getMessage());
-        }
-        return List.of();
-    }
 
     // Check if an employee with the given email already exists in the database
     public boolean employeeExists(String employeeEmail) {
@@ -62,12 +49,14 @@ public class EmployeeRepository {
                 return new Employee();
             }
 
+
             try {
                 // Insert employee into the 'employee' database table
                 entityManager.createNativeQuery("INSERT INTO employee (employee_email, employee_name) values (:userEmail, :userName)", Employee.class)
                         .setParameter("userEmail", registrationDto.getEmployee().getEmployeeEmail())
                         .setParameter("userName", registrationDto.getEmployee().getEmployeeName())
                         .executeUpdate();
+
 
                 // Retrieve the ID of the newly inserted employee
                 int employeeId = (int) entityManager.createNativeQuery("SELECT TOP 1 employee_id FROM Employee ORDER BY employee_id DESC").getSingleResult();
@@ -82,8 +71,7 @@ public class EmployeeRepository {
                 // If the employee is not in the blacklist, insert into the blacklist table
                 if (blacklistCount == 0) {
                     // Retrieve the ID of the newly inserted employee
-                    entityManager.createNativeQuery("INSERT INTO blacklist (event_hsv_id, employee_id, blacklist_counter) values (:eventHsvId, :employeeId, 0)")
-                            .setParameter("eventHsvId", registrationDto.getEventHsvId())
+                    entityManager.createNativeQuery("INSERT INTO blacklist (employee_id, blacklist_counter) values (:employeeId, 0)")
                             .setParameter("employeeId", employeeId)
                             .executeUpdate();
                 }
@@ -96,6 +84,7 @@ public class EmployeeRepository {
                         .setParameter("winner", registrationDto.getWinner())
                         .setParameter("substituteWinner", registrationDto.getSubstituteWinner())
                         .executeUpdate();
+
 
                 // Retrieve and return the employee based on their ID
                 return (Employee) entityManager.createNativeQuery("SELECT * FROM employee WHERE employee_id = :employeeId", Employee.class)

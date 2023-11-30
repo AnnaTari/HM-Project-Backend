@@ -1,7 +1,7 @@
 package com.hansemerkur.lotteryappbackend.dto;
-
 import com.hansemerkur.lotteryappbackend.model.Employee;
 
+// neccesary data from h2 db for registration
 public class RegistrationDto {
 
     private Employee employee;
@@ -14,6 +14,7 @@ public class RegistrationDto {
 
     private Boolean substituteWinner;
 
+    // constructor
     public RegistrationDto (Employee employee, int eventHsvId, String escortName, Boolean winner, Boolean substituteWinner){
         this.employee = employee;
         this.eventHsvId = eventHsvId;
@@ -23,7 +24,7 @@ public class RegistrationDto {
     }
 
 
-
+    // getter and setter
     public Employee getEmployee(){return employee;}
 
     public int getEventHsvId(){return eventHsvId;}
