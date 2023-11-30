@@ -1,5 +1,6 @@
 package com.hansemerkur.lotteryappbackend.model;
 
+//Winner class to model the necessary data
 public class Winner {
 
     private long blacklistId;
@@ -16,8 +17,8 @@ public class Winner {
 
     }
 
-    //Constructor
-    public Winner(long blacklistId, int employeeId, int eventHsvId, String name, String email, String escortName, boolean winner, boolean substituteWinner, int blacklistCounter) {
+    //Constructor with parameters
+    public Winner(long blacklistId, int employeeId, int eventHsvId, String name, String email, String escortName, boolean winner, boolean substituteWinner, int blacklistCounter, int ticketAmount) {
         this.blacklistId = blacklistId;
         this.employeeId = employeeId;
         this.eventHsvId = eventHsvId;
@@ -29,6 +30,7 @@ public class Winner {
         this.blacklistCounter = blacklistCounter;
     }
 
+    //define getter and setter
     public long getBlacklistId() {
         return blacklistId;
     }
@@ -101,7 +103,7 @@ public class Winner {
         this.blacklistCounter = blacklistCounter;
     }
 
-
+    //generate string representation
     @Override
     public String toString() {
         return "Winner{" +

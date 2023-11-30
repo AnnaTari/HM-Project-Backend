@@ -12,10 +12,10 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/winner")
 
+//WinnerService injected in WinnerController
 public class WinnerController {
     private final WinnerService winnerService;
     public WinnerController(WinnerService winnerService) {this.winnerService = winnerService;}
-
 
     //getting the request "startLottery" from Angular
     @PostMapping()
