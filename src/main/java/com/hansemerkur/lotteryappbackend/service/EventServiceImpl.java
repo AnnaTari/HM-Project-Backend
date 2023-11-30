@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class EventServicelmpl implements EventService {
+public class EventServiceImpl implements EventService {
 
     private final EventRepository eventRepository;
 
-    public EventServicelmpl(EventRepository eventRepository) {
+    public EventServiceImpl(EventRepository eventRepository) {
         this.eventRepository = eventRepository;
     }
 

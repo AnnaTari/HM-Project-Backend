@@ -26,7 +26,7 @@ public class EventRepository {
     public List<Event> findAllEvents() {
         try {
             return (List<Event>) entityManager.createNativeQuery(
-                            "SELECT * FROM  event_hsv a", Event.class)
+                            "SELECT * FROM  event_hsv", Event.class)
                     .getResultList();
         } catch (Exception e) {
             LOGGER.warn(e.getMessage());
@@ -72,7 +72,6 @@ public class EventRepository {
 
     //Updates all fields of an event by the unique event_hsv_id and commits the changes
     public List<Event> updateEvent(Event event) {
-        this.deleteForeignReferencesFromAttendance(event.getEventHsvId());
         try {
             entityManager.createNativeQuery("UPDATE event_hsv SET  admin_id = :adminId, match_name = :matchName, match_details = :matchDetails, event_date = :eventDate, location = :location, picture = :picture, deadline = :deadline, ticket_type = :ticketType, ticket_amount = :ticketAmount, registration_date = :registrationDate where event_hsv_id = :eventHsvId")
                     .setParameter("adminId", event.getAdminId())
