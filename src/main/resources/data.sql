@@ -1,7 +1,7 @@
-INSERT INTO hm_admin (admin_name, admin_password) VALUES ('Yasch', '1234');
-INSERT INTO hm_admin (admin_name, admin_password) VALUES ('Lara', '1234');
-INSERT INTO hm_admin (admin_name, admin_password) VALUES ('Anastasia', '1234');
-INSERT INTO hm_admin (admin_name, admin_password) VALUES ('Andy', '1234');
+INSERT INTO hm_admin (admin_name, admin_password) VALUES ('Yasch', '$2a$10$ITjGZ53Ps7bwRwS3zt/mjuCTi7t5nFll5XpFDl4gSD5uMwpGRI5Jm');
+INSERT INTO hm_admin (admin_name, admin_password) VALUES ('Lara', '$2a$10$ITjGZ53Ps7bwRwS3zt/mjuCTi7t5nFll5XpFDl4gSD5uMwpGRI5Jm');
+INSERT INTO hm_admin (admin_name, admin_password) VALUES ('Anastasia', '$2a$10$ITjGZ53Ps7bwRwS3zt/mjuCTi7t5nFll5XpFDl4gSD5uMwpGRI5Jm');
+INSERT INTO hm_admin (admin_name, admin_password) VALUES ('Andy', '$2a$10$ITjGZ53Ps7bwRwS3zt/mjuCTi7t5nFll5XpFDl4gSD5uMwpGRI5Jm'); --real password: 1234
 
 INSERT INTO employee (employee_name, employee_email) VALUES ('Anastasia Tatarinov', 'Anastasia.Tatarinov@hansemerkur.de');
 INSERT INTO employee (employee_name, employee_email) VALUES ('Yasch Gahi', 'Yasch.Gahi@hansemerkur.de');

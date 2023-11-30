@@ -2,7 +2,7 @@ CREATE TABLE hm_admin
 (
     admin_id       INT Auto_Increment NOT NULL,
     admin_name     varchar(50) NOT NULL,
-    admin_password varchar(50) NOT NULL,
+    admin_password varchar(255) NOT NULL,
     CONSTRAINT admin_pkey PRIMARY KEY (admin_id)
 );
 

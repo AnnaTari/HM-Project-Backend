@@ -19,12 +19,11 @@ public class AdminRepository {
     }
 
     //finds the admin entry in hm_admin with the unique username and password combination
-    public Admin findAdminByUsernameAndPassword(String adminName, String adminPassword) {
+    public Admin findAdminByUsername(String adminName) {
         try {
             return (Admin) entityManager.createNativeQuery(
-                            "SELECT * FROM hm_admin a where a.admin_name = :adminName AND a.admin_password = :adminPassword", Admin.class)
+                            "SELECT * FROM hm_admin a where a.admin_name = :adminName", Admin.class)
                     .setParameter("adminName", adminName)
-                    .setParameter("adminPassword", adminPassword)
                     .getSingleResult();
         } catch (Exception e) {
             LOGGER.warn(e.getMessage());
