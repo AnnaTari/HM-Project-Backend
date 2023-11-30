@@ -10,4 +10,4 @@ You can run this application like any other Java project. We are using an H2 dat
 - User Name: sa
 - Password: (left empty)
   
-After creating new events while the application is running, you can always check the changes this way. The data.sql file also contains the Admin user data, which you can use to log in to our login page.
+After for example creating new events while the application is running, you can always check the changes this way. The data.sql file also contains the Admin user data, which you can use to log in to our login page.
