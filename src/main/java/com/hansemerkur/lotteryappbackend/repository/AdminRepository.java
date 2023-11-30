@@ -18,7 +18,7 @@ public class AdminRepository {
         this.entityManager = entityManager;
     }
 
-    //finds the admin entry in hm_admin with the unique username and password combination
+    //finds the admin entry in hm_admin with the unique username by using a parametrized query
     public Admin findAdminByUsername(String adminName) {
         try {
             return (Admin) entityManager.createNativeQuery(

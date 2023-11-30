@@ -9,10 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.sql.Time;
 import java.util.List;
 
-//Accepts only requests from this origin (frontend) for the endpoint events
+//Accepts only requests from this origin (frontend) for the endpoint: events
 @CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping(value = "/events")
