@@ -8,6 +8,7 @@ import java.sql.Time;
 import java.util.Arrays;
 import java.util.Date;
 
+//map Event as Entity containing relevant attributes
 @Entity
 public class Event {
     @Id
@@ -31,6 +32,7 @@ public class Event {
 
     }
 
+    //store information of attributes
     public Event(Long eventHsvId, int adminId, String matchName, String matchDetails, Date eventDate, String location, byte[] picture, Date deadline, Integer ticketType, Integer ticketAmount, Date registrationDate) {
         this.eventHsvId = eventHsvId;
         this.adminId = adminId;
@@ -45,6 +47,7 @@ public class Event {
         this.registrationDate = registrationDate;
     }
 
+    //define getter and setter
     public Long getEventHsvId() {
         return eventHsvId;
     }
@@ -133,6 +136,7 @@ public class Event {
         this.registrationDate = registrationDate;
     }
 
+    //return string representation
     @Override
     public String toString() {
         return "Event{" +
