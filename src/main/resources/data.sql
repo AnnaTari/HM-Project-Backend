@@ -46,7 +46,7 @@ INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location,
 INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, picture, deadline,ticket_type, ticket_amount, registration_date) VALUES (2,'HSV vs. BVB', 'Derby', current_timestamp +20, 'Volksparkstadion', 'placeholder', current_date + 15, 2, 20, current_date + 5);
 INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, picture, deadline,ticket_type, ticket_amount, registration_date) VALUES (1,'HSV vs. Fortuna', 'Derby', current_timestamp + 25, 'Volksparkstadion', 'placeholder', current_date +20, 2, 20, current_date + 10);
 --Expired Events
-INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, picture, deadline,ticket_type, ticket_amount, registration_date) VALUES (2,'HSV vs. Rostock', 'Derby', CURRENT_TIMESTAMP + 2, 'Volksparkstadion', 'placeholder', current_date-2, 2, 20, current_date-10);
+INSERT INTO event_hsv (admin_id,match_name, match_details, event_date, location, picture, deadline,ticket_type, ticket_amount, registration_date) VALUES (2,'HSV vs. Rostock', 'Derby', CURRENT_TIMESTAMP + 2, 'Volksparkstadion', 'placeholder', current_date-2, 2, 10, current_date-10);
 
 /*attendance testdata*/
 INSERT INTO hm_attendance (employee_id, event_hsv_id, escort_name, winner, substitute_winner) VALUES (1,5,'Lara', false, false);
